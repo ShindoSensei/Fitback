@@ -20,6 +20,7 @@ gem 'coffee-rails', '~> 4.2'
 # gem 'therubyracer', platforms: :ruby
 gem 'devise'
 gem 'pry'
+gem 'mqtt'
 
 
 # Use jquery as the JavaScript library

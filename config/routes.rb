@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   root 'static#homepage'
 
   resources :participants
-  resources :models
+  resources :wearables
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

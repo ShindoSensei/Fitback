@@ -1,3 +1,3 @@
 class Activity < ApplicationRecord
-  has_many :gymsessions
+  has_many :trainings
 end

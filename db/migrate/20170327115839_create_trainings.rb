@@ -1,6 +1,6 @@
-class CreateGymsessions < ActiveRecord::Migration[5.0]
+class CreateTrainings < ActiveRecord::Migration[5.0]
   def change
-    create_table :gymsessions do |t|
+    create_table :trainings do |t|
       t.integer :duration
       t.integer :success
       t.float :avgcal

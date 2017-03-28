@@ -23,7 +23,20 @@ ActiveRecord::Schema.define(version: 20170328023952) do
     t.datetime "updated_at",    null: false
   end
 
-  create_table "gymsessions", force: :cascade do |t|
+  create_table "participants", force: :cascade do |t|
+    t.integer  "calories_burnt"
+    t.integer  "heart_rate",     default: [],              array: true
+    t.integer  "training_id"
+    t.integer  "user_id"
+    t.integer  "wearable_id"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.index ["training_id"], name: "index_participants_on_training_id", using: :btree
+    t.index ["user_id"], name: "index_participants_on_user_id", using: :btree
+    t.index ["wearable_id"], name: "index_participants_on_wearable_id", using: :btree
+  end
+
+  create_table "trainings", force: :cascade do |t|
     t.integer  "duration"
     t.integer  "success"
     t.float    "avgcal"
@@ -31,21 +44,8 @@ ActiveRecord::Schema.define(version: 20170328023952) do
     t.integer  "instructor_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.index ["activity_id"], name: "index_gymsessions_on_activity_id", using: :btree
-    t.index ["instructor_id"], name: "index_gymsessions_on_instructor_id", using: :btree
-  end
-
-  create_table "participants", force: :cascade do |t|
-    t.integer  "calories_burnt"
-    t.integer  "heart_rate",     default: [],              array: true
-    t.integer  "gymsession_id"
-    t.integer  "user_id"
-    t.integer  "wearable_id"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.index ["gymsession_id"], name: "index_participants_on_gymsession_id", using: :btree
-    t.index ["user_id"], name: "index_participants_on_user_id", using: :btree
-    t.index ["wearable_id"], name: "index_participants_on_wearable_id", using: :btree
+    t.index ["activity_id"], name: "index_trainings_on_activity_id", using: :btree
+    t.index ["instructor_id"], name: "index_trainings_on_instructor_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -81,8 +81,8 @@ ActiveRecord::Schema.define(version: 20170328023952) do
     t.datetime "updated_at",              null: false
   end
 
-  add_foreign_key "gymsessions", "activities"
-  add_foreign_key "participants", "gymsessions"
+  add_foreign_key "participants", "trainings"
   add_foreign_key "participants", "users"
   add_foreign_key "participants", "wearables"
+  add_foreign_key "trainings", "activities"
 end
