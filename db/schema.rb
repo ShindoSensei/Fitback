@@ -22,12 +22,6 @@ ActiveRecord::Schema.define(version: 20170328023952) do
     t.datetime "updated_at",    null: false
   end
 
-  create_table "locations", force: :cascade do |t|
-    t.string   "location_type"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
   create_table "participants", force: :cascade do |t|
     t.integer  "calories_burnt"
     t.integer  "heart_rate",     default: [],              array: true
@@ -59,14 +53,14 @@ ActiveRecord::Schema.define(version: 20170328023952) do
     t.float    "avgcal"
     t.date     "training_date"
     t.time     "training_time"
-    t.integer  "location_id"
+    t.string   "location"
+    t.text     "AAR"
     t.integer  "activity_id"
     t.integer  "instructor_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["activity_id"], name: "index_trainings_on_activity_id", using: :btree
     t.index ["instructor_id"], name: "index_trainings_on_instructor_id", using: :btree
-    t.index ["location_id"], name: "index_trainings_on_location_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -82,6 +76,8 @@ ActiveRecord::Schema.define(version: 20170328023952) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.string   "first_name"
+    t.string   "last_name"
     t.boolean  "isAdmin",                default: false
     t.boolean  "isInstructor",           default: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -91,5 +87,4 @@ ActiveRecord::Schema.define(version: 20170328023952) do
   add_foreign_key "participants", "trainees"
   add_foreign_key "participants", "trainings"
   add_foreign_key "trainings", "activities"
-  add_foreign_key "trainings", "locations"
 end
