@@ -1,5 +1,4 @@
 class Participant < ApplicationRecord
-  belongs_to :user
-  belongs_to :wearable
-  belongs_to :trainingsession
+  belongs_to :trainee
+  belongs_to :training
 end
