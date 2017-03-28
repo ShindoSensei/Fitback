@@ -5,7 +5,7 @@ class CreateGymsessions < ActiveRecord::Migration[5.0]
       t.integer :success
       t.float :avgcal
       t.belongs_to :activity, foreign_key: true
-      # t.references :instructor, index: true
+      t.references :instructor, index: true
       t.timestamps
     end
   end

@@ -4,7 +4,6 @@ class CreateActivities < ActiveRecord::Migration[5.0]
       t.integer :maxsize
       t.integer :intensity
       t.string :type
-      # t.belongs_to :gym, foreign_key: true 
       t.timestamps
     end
   end
