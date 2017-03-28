@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  maxsize: 1
+  intensity: 1
+  type: 
+
+two:
+  maxsize: 1
+  intensity: 1
+  type: 
