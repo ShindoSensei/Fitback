@@ -7,5 +7,7 @@ class AddFieldsToUsers < ActiveRecord::Migration[5.0]
     add_column :users, :weight, :decimal
     add_column :users, :height, :decimal
     add_column :users, :gender, :string
+    add_column :users, :isAdmin, :boolean, default: false
+    add_column :users, :isInstructor, :boolean, default: false
   end
 end
