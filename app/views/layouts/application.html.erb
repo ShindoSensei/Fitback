@@ -6,9 +6,19 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.css">
   </head>
 
   <body>
+    <div class="container">
+      <%if notice%>
+      <p class="alert alert-success"><%= notice %></p>
+      <%end%>
+      <%if alert%>
+      <p class="alert alert-danger"><%= alert %></p>
+      <%end%>
+    </div>
     <%= yield %>
   </body>
 </html>
