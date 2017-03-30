@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
   root 'static#homepage'
+  # devise_scope :user do
+  #   root to: "devise/sessions#new"
+  # end
 
   get 'faker', to: 'faker#fake', as: 'faker'
   get 'fakeoff', to: 'faker#fakeOff', as: 'fakeoff'
