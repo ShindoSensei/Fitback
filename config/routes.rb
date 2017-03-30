@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  root 'static#homepage'
+
   get 'faker', to: 'faker#fake', as: 'faker'
   get 'fakeoff', to: 'faker#fakeOff', as: 'fakeoff'
 
