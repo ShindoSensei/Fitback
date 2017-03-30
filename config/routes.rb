@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
 
-  devise_for :users
   root 'static#homepage'
 
-  resources :participants
-  resources :wearables
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  devise_for :users
+
+  get 'activities/index'
+  get 'activities/:id', to: 'activities#show', as: 'activity'
+
+  get 'participants/index'
+  get 'participants/:id', to: 'participants#show', as: 'participant'
+  
+  resources :trainings
 end
