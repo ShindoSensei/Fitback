@@ -8,10 +8,10 @@ Rails.application.routes.draw do
   get 'start_training/:id', to: 'mqtt#start_training', as: 'start_training'
   get 'stop_training/:id', to: 'mqtt#stop_training', as: 'stop_training'
 
-  get 'activities/index'
+  get 'activities', to: 'activities#index', as: 'activities'
   get 'activities/:id', to: 'activities#show', as: 'activity'
 
-  get 'participants/index'
+  get 'participants', to: 'participants#index', as: 'participants'
   get 'participants/:id', to: 'participants#show', as: 'participant'
 
   devise_for :users, controllers: {
