@@ -1,17 +1,24 @@
 Rails.application.routes.draw do
+
+  root 'static#homepage'
+
   get 'faker', to: 'faker#fake', as: 'faker'
   get 'fakeoff', to: 'faker#fakeOff', as: 'fakeoff'
 
-  get 'start_training', to: 'mqtt#start_training', as: 'start_training'
-  get 'stop_training', to: 'mqtt#stop_training', as: 'stop_training'
+  get 'start_training/:id', to: 'mqtt#start_training', as: 'start_training'
+  get 'stop_training/:id', to: 'mqtt#stop_training', as: 'stop_training'
+
+  get 'activities/index'
+  get 'activities/:id', to: 'activities#show', as: 'activity'
+
+  get 'participants/index'
+  get 'participants/:id', to: 'participants#show', as: 'participant'
 
   devise_for :users, controllers: {
        registrations: 'users/registrations'
      }
-  root 'static#homepage'
 
-  resources :participants
   resources :trainees
-  resources :wearables
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :trainings
+
 end
