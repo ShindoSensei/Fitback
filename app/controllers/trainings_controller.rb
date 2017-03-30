@@ -6,6 +6,7 @@ class TrainingsController < ApplicationController
     @training_all = Training.all
     respond_to do |format|
       format.json  { render :json => @training_all }
+      format.html {render :index}
     end
   end
 
