@@ -2,7 +2,9 @@ require 'mqtt'
 
 class FakerController < ApplicationController
 
+
   def fake
+
     FakeMqttJob.set(wait: 2.seconds).perform_later("device1", "device2")
     redirect_to root_path
   end

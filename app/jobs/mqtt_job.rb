@@ -24,7 +24,8 @@ class MqttJob < ApplicationJob
     end
     client.subscribe('startstop')
       client.get do |topic,message|
-        if (topic === 'startstop') && (message === trg_id) # compare with trg_id
+        if (topic == 'startstop') && (message == 'stop')
+        # if (topic === 'startstop') && (message === trg_id) # compare with trg_id
           puts "client disconnect"
 
           client.disconnect()
