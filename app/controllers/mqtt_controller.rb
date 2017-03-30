@@ -6,15 +6,20 @@ class MqttController < ApplicationController
 
   def start_training
     # query list of devices and training id
+    arr = []
+    @participants  = Participant.where(training_id: @training.id)
+    @participants.each do |participant|
+      @trainee = Trainee.find(participant.trainee_id)
+      arr.push(@trainee.topic)
+    end
 
-    MqttJob.set(wait: 2.seconds).perform_later("device1", "device2" ,12345.to_s)
+    arr.push(@training.id.to_s)
+    MqttJob.set(wait: 2.seconds).perform_later(arr)
+    # MqttJob.set(wait: 2.seconds).perform_later("device1", "device2")
     redirect_to root_path
   end
 
   def stop_training
-
-    redirect_to root_path
-
     clientOff = MQTT::Client.connect(
     host: 'm11.cloudmqtt.com',
     username: 'fjskjgyl',
@@ -22,10 +27,11 @@ class MqttController < ApplicationController
     port: 21679,
     ssl: true
     )
-    # to change 'off' to training id
-    clientOff.publish('startstop', 'stop', retain=false)
+    # send training id as stop identifier
+    clientOff.publish('startstop', @training.id.to_s , retain=false)
     clientOff.disconnect()
 
+    redirect_to root_path
   end
 
   private
