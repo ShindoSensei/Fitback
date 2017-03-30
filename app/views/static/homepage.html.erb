@@ -1,4 +1,12 @@
 <div class="container">
+<%= render "partials/navbar" %>
+<%if notice%>
+<p class="alert alert-success"><%= notice %></p>
+<%end%>
+<%if alert%>
+<p class="alert alert-danger"><%= alert %></p>
+<%end%>
 <h1>Static#homepage</h1>
 <p>Find me in app/views/static/homepage.html.erb</p>
+<%= render "partials/footer" %>
 </div>
