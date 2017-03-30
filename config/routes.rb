@@ -12,20 +12,16 @@ Rails.application.routes.draw do
   get 'participants', to: 'participants#index', as: 'participants'
   get 'participants/:id', to: 'participants#show', as: 'participant'
 
+  get 'static/homepage' => 'static#homepage', as: 'homepage'
+
 
   devise_for :users, controllers: {
        registrations: 'users/registrations'
      }
 
      devise_scope :user do
-     authenticated :user do
-       root 'static#homepage', as: :authenticated_root
+       root :to => 'devise/sessions#new'
      end
-
-     unauthenticated do
-       root 'devise/sessions#new', as: :unauthenticated_root
-     end
-   end
 
   resources :trainees
   resources :trainings
