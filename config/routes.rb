@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'participants', to: 'participants#index', as: 'participants'
   get 'participants/:id', to: 'participants#show', as: 'participant'
 
+
   devise_for :users, controllers: {
        registrations: 'users/registrations'
      }
