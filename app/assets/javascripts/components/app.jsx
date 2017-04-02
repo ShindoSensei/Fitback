@@ -1,4 +1,4 @@
-/* globals React FixedHeader FixedFooter UpcomingTrainings Form History CurrentSession $ */
+/* globals React FixedHeader FixedFooter UpcomingTrainings Form History CurrentSession $ Profile */
 
 class App extends React.Component {
   constructor (props) {
@@ -11,6 +11,12 @@ class App extends React.Component {
       // screen: 'history'
       // screen: 'current'
     }
+  }
+
+  setRenderScreen (newScreen) {
+    this.setState({
+      screen: newScreen
+    })
   }
 
   updateUpcoming () {
@@ -31,11 +37,13 @@ class App extends React.Component {
   render () {
     var screenRender
     if (this.state.screen === 'upcoming') {
-      screenRender = <UpcomingTrainings training={this.state.training} />
+      screenRender = <UpcomingTrainings training={this.state.training} activity={this.props.activity} />
     } else if (this.state.screen === 'history') {
       screenRender = <History />
     } else if (this.state.screen === 'current') {
       screenRender = <CurrentSession />
+    } else if (this.state.screen === 'profile') {
+      screenRender = <Profile />
     }
 
     return (
@@ -51,7 +59,7 @@ class App extends React.Component {
             className={'modalForm ' + this.state.formDisplay}
           />
         </div>
-        <FixedFooter />
+        <FixedFooter setRenderScreen={this.setRenderScreen.bind(this)} />
       </div>
     )
   }

@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  root 'static#homepage'
-
   get 'faker', to: 'faker#fake', as: 'faker'
   get 'fakeoff', to: 'faker#fakeOff', as: 'fakeoff'
 
@@ -19,13 +17,14 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: {
        registrations: 'users/registrations'
-     }
 
+     }
      devise_scope :user do
        root :to => 'devise/sessions#new'
      end
 
+
   resources :trainees
   resources :trainings
-
+  root 'static#homepage'
 end
