@@ -1,4 +1,4 @@
-/* globals React FixedHeader FixedFooter UpcomingTrainings Form History CurrentSession */
+/* globals React FixedHeader FixedFooter UpcomingTrainings Form History CurrentSession Profile */
 
 class App extends React.Component {
   constructor () {
@@ -10,6 +10,12 @@ class App extends React.Component {
     }
   }
 
+  setRenderScreen (newScreen) {
+    this.setState({
+      screen: newScreen
+    })
+  }
+
   render () {
     // Different centre screen depending on this.state.screen
     var screenRender
@@ -19,6 +25,8 @@ class App extends React.Component {
       screenRender = <History />
     } else if (this.state.screen === 'current') {
       screenRender = <CurrentSession />
+    } else if (this.state.screen === 'profile') {
+      screenRender = <Profile />
     }
 
     return (
@@ -30,7 +38,7 @@ class App extends React.Component {
         <div>
           <Form className='hidden' />
         </div>
-        <FixedFooter />
+        <FixedFooter setRenderScreen={this.setRenderScreen.bind(this)} />
       </div>
     )
   }
