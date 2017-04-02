@@ -23,8 +23,8 @@ class FixedFooter extends React.Component {
                 </a>
               </div>
               <div className='col-xs-2 text-left'>
-                <a onSubmit={this.ubmithistoryScreen.bind(this)}>
                   <i className='fa fa-history fa-3' aria-hidden='true' />
+                <a onSubmit={this.submithistoryScreen.bind(this)} >
                 </a>
               </div>
               <div className='col-xs-2 text-center'><i className='fa fa-heartbeat fa-3' aria-hidden='true' /></div>
