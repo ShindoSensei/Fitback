@@ -1,10 +1,13 @@
-/* globals React FixedHeader FixedFooter UpcomingTrainings Form History CurrentSession Profile */
+/* globals React FixedHeader FixedFooter UpcomingTrainings Form History CurrentSession $ Profile */
 
 class App extends React.Component {
-  constructor () {
-    super()
+  constructor (props) {
+    // Must pass in props here because React only assigns props on constructed instance right after construction. Hence, we make use of the fact that React passes props to constructor by default
+    super(props)
     this.state = {
-      screen: 'upcoming'
+      training: this.props.training,
+      screen: 'upcoming',
+      formDisplay: 'hidden'
       // screen: 'history'
       // screen: 'current'
     }
@@ -16,11 +19,25 @@ class App extends React.Component {
     })
   }
 
+  updateUpcoming () {
+    $.ajax({
+      url: '/trainings.json',
+      method: 'GET',
+      success: function (data) {
+        this.setState({
+          training: data
+        })
+        console.log('trainings updated on upcoming page')
+        this.setState({
+          formDisplay: 'hidden'
+        })
+      }.bind(this)
+    })
+  }
   render () {
-    // Different centre screen depending on this.state.screen
     var screenRender
     if (this.state.screen === 'upcoming') {
-      screenRender = <UpcomingTrainings training={this.props.training} activity={this.props.activity} />
+      screenRender = <UpcomingTrainings training={this.state.training} activity={this.props.activity} />
     } else if (this.state.screen === 'history') {
       screenRender = <History />
     } else if (this.state.screen === 'current') {
@@ -36,7 +53,11 @@ class App extends React.Component {
           {screenRender}
         </div>
         <div>
-          <Form className='hidden' />
+          <Form
+            update={this.updateUpcoming.bind(this)}
+            activities={this.props.activity}
+            className={'modalForm ' + this.state.formDisplay}
+          />
         </div>
         <FixedFooter setRenderScreen={this.setRenderScreen.bind(this)} />
       </div>
