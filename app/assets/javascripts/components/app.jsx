@@ -14,7 +14,7 @@ class App extends React.Component {
     // Different centre screen depending on this.state.screen
     var screenRender
     if (this.state.screen === 'upcoming') {
-      screenRender = <UpcomingTrainings training={this.props.training} />
+      screenRender = <UpcomingTrainings training={this.props.training} activity={this.props.activity} />
     } else if (this.state.screen === 'history') {
       screenRender = <History />
     } else if (this.state.screen === 'current') {

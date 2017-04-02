@@ -4,6 +4,7 @@ class TrainingsController < ApplicationController
 
   def index
     @training_all = Training.all
+    @activities_all = Activity.all
     respond_to do |format|
       format.json  { render :json => @training_all }
       format.html {render :index}

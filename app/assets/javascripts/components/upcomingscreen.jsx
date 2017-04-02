@@ -5,15 +5,20 @@ class UpcomingTrainings extends React.Component {
   render () {
     let training_locations = this.props.training.map(function (train, index) {
       let my_time = new Date(train.training_time)
+      let myActivityId = train.activity_id
+      let activityObj = this.props.activity.find(function (item){
+          return item.id === myActivityId
+      })
 
       return (
         <div key={index} className="col-md-6 col-sm-12">
           <div className="panel panel-default">
             <div className="panel-heading">
-              <h2 className="panel-title">Location: {train.location}</h2>
+              <h1 className="panel-title">Activity: {activityObj.activity_type}</h1>
             </div>
             <div className="panel-body">
               <div className="col-md-6">
+                <h3>Location: {train.location}</h3>
                 <p>Date: {train.training_date}</p>
                 <p>Time: {("0" + (my_time.getHours()-8)).slice(-2)   + ":" +
                   ("0" + my_time.getMinutes()).slice(-2)}</p>
@@ -29,7 +34,7 @@ class UpcomingTrainings extends React.Component {
           </div>
         </div>
       )
-    })
+    }.bind(this))
 
     return (
       <div className="container">
