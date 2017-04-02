@@ -64,6 +64,7 @@ class TrainingsController < ApplicationController
 
   def destroy
     @training.destroy
+    #Do something here
   end
 
   private

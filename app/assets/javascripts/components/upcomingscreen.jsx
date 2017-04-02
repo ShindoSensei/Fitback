@@ -25,6 +25,8 @@ class UpcomingTrainings extends React.Component {
 
   render () {
     let allTrainings = this.props.training.map(function (train, index) {
+      //find activity based on id
+      //
       return (
         <p key={index}>{train.location}</p>
       )
