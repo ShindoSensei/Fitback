@@ -7,7 +7,8 @@ class App extends React.Component {
     this.state = {
       training: this.props.training,
       screen: 'upcoming',
-      formDisplay: 'hidden'
+      formDisplay: 'hidden',
+      trainingHist: this.props.trainingHist
       // screen: 'history'
       // screen: 'current'
     }
@@ -39,7 +40,7 @@ class App extends React.Component {
     if (this.state.screen === 'upcoming') {
       screenRender = <UpcomingTrainings training={this.state.training} activity={this.props.activity} />
     } else if (this.state.screen === 'history') {
-      screenRender = <History />
+      screenRender = <History trainingHist={this.state.trainingHist} activity={this.props.activity} />
     } else if (this.state.screen === 'current') {
       screenRender = <CurrentSession />
     } else if (this.state.screen === 'profile') {

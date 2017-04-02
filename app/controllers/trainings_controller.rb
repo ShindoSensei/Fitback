@@ -5,6 +5,8 @@ class TrainingsController < ApplicationController
   def index
     @training_all = Training.all
     @activities_all = Activity.all
+    @training_hist = Training.where("training_date < ?", Date.today)
+    @training_hist.order(training_date: :desc)
     respond_to do |format|
       format.json  { render :json => @training_all }
       format.html {render :index}

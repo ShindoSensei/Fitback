@@ -18,13 +18,13 @@ class FixedFooter extends React.Component {
           <div className='container'>
             <div className='row'>
               <div className='col-xs-3 text-left'>
-                <a onSubmit={this.submitupcomingScreen.bind(this)}>
+                <a onClick={this.submitupcomingScreen.bind(this)}>
                   <i className='fa fa-home fa-3' aria-hidden='true' />
                 </a>
               </div>
               <div className='col-xs-2 text-left'>
+                <a onClick={this.submithistoryScreen.bind(this)} >
                   <i className='fa fa-history fa-3' aria-hidden='true' />
-                <a onSubmit={this.submithistoryScreen.bind(this)} >
                 </a>
               </div>
               <div className='col-xs-2 text-center'><i className='fa fa-heartbeat fa-3' aria-hidden='true' /></div>
