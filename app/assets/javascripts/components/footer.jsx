@@ -10,7 +10,14 @@ class FixedFooter extends React.Component {
     event.preventDefault()
     this.props.setRenderScreen('history')
   }
-
+  submitcurrentScreen (event) {
+    event.preventDefault()
+    this.props.setRenderScreen('current')
+  }
+  submituserScreen (event) {
+    event.preventDefault()
+    this.props.setRenderScreen('user')
+  }
   render () {
     return (
       <div>
@@ -27,9 +34,15 @@ class FixedFooter extends React.Component {
                   <i className='fa fa-history fa-3' aria-hidden='true' />
                 </a>
               </div>
-              <div className='col-xs-2 text-center'><i className='fa fa-heartbeat fa-3' aria-hidden='true' /></div>
+              <div className='col-xs-2 text-center'>
+                <a onClick={this.submitcurrentScreen.bind(this)} >
+                  <i className='fa fa-heartbeat fa-3' aria-hidden='true' />
+                </a>
+              </div>
               <div className='col-xs-2 text-right'>
-                <i className='fa fa-user fa-3' aria-hidden='true' />
+                <a onClick={this.submituserScreen.bind(this)} >
+                  <i className='fa fa-user fa-3' aria-hidden='true' />
+                </a>
               </div>
               <div className='col-xs-3 text-right'>
                 <a rel='nofollow' data-method='delete' href='/users/sign_out' ><i className='fa fa-sign-out fa-3' aria-hidden='true' /></a>

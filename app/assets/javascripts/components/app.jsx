@@ -1,4 +1,4 @@
-/* globals React FixedHeader FixedFooter UpcomingTrainings Form History CurrentSession $ */
+/* globals React FixedHeader FixedFooter UpcomingTrainings Form History CurrentSession User $ */
 
 class App extends React.Component {
   constructor (props) {
@@ -99,6 +99,8 @@ class App extends React.Component {
       screenRender = <History trainingHist={this.state.trainingHist} activity={this.props.activity} />
     } else if (this.state.screen === 'current') {
       screenRender = <CurrentSession />
+    } else if (this.state.screen === 'user') {
+      screenRender = <User />
     }
 
     return (
