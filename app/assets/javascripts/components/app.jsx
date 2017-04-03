@@ -37,7 +37,7 @@ class App extends React.Component {
   render () {
     var screenRender
     if (this.state.screen === 'upcoming') {
-      screenRender = <UpcomingTrainings training={this.state.training} activity={this.props.activity} />
+      screenRender = <UpcomingTrainings training={this.state.training} activity={this.props.activity} trainees={this.props.trainees} participants={this.props.participants} />
     } else if (this.state.screen === 'history') {
       screenRender = <History />
     } else if (this.state.screen === 'current') {

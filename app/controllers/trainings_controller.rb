@@ -3,7 +3,7 @@ class TrainingsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy]
 
   def index
-    @training_all = Training.all
+    @training_all = Training.where('training_date >= ?', Date.today).order('training_date ASC')
     @activities_all = Activity.all
     respond_to do |format|
       format.json  { render :json => @training_all }

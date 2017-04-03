@@ -31,18 +31,20 @@ class UpcomingTrainings extends React.Component {
           return item.id === myActivityId
       })
 
+      // console.log(myTrainingId.trainee_id)
+
       return (
-        <div key={index} className="col-md-6 col-sm-12">
+        <div key={index} className="col-md-12 col-sm-12">
           <div className="panel panel-default">
             <div className="panel-heading">
               <h1 className="panel-title">Activity: {activityObj.activity_type}</h1>
             </div>
             <div className="panel-body">
               <div className="col-md-6">
-                <h3>Location: {train.location}</h3>
-                <p>Date: {train.training_date}</p>
-                <p>Time: {("0" + (my_time.getHours()-8)).slice(-2)   + ":" +
-                  ("0" + my_time.getMinutes()).slice(-2)}</p>
+                <h3>Location: <br />{train.location}</h3>
+                <h5>Date: {train.training_date}</h5>
+                <h5>Time: {("0" + (my_time.getUTCHours())).slice(-2)   + ":" +
+                  ("0" + my_time.getMinutes()).slice(-2)}</h5>
               </div>
               <div className="col-md-6">
                 <div className="btn-group pull-right" role="group" aria-label="...">
