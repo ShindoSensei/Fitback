@@ -5,10 +5,12 @@ class TrainingsController < ApplicationController
   def index
     @training_all = Training.all
     @activities_all = Activity.all
-    @training_hist = Training.where("training_date < ?", Date.today)
-    @training_hist.order(training_date: :desc)
+    @training_hist = Training.select("trainings.id,trainings.training_date,trainings.training_time,activities.activity_type").joins(:activity).where("training_date < ?", Date.today).order(training_date: :desc)
+
     respond_to do |format|
-      format.json  { render :json => @training_all }
+      format.json  { render :json => {:training_all => @training_all,
+                                  :activities_all => @activities_all,
+                                  :training_hist => @training_hist }}
       format.html {render :index}
     end
   end
