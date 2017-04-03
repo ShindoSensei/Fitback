@@ -1,27 +1,22 @@
-/* globals React */
+/* globals React $ */
 
 class UpcomingTrainings extends React.Component {
-  // constructor () {
-  //   super()
-  //   this.state = {
-  //     allActivities: []
-  //   }
-  // }
-  // addTraining () {
-  //   $.ajax({
-  //     url: '/activities.json',
-  //     method: 'GET',
-  //     success: function (activitiesArr) {
-  //       this.setState({
-  //         allActivities: this.state.allActivities.concat(activitiesArr)
-  //       })
-  //     }
-  //   })
-  // }
-  //
-  // <button onClick={this.addTraining.bind(this)}>
-  //   Add Training
-  // </button>
+
+  addTraining (event) {
+    event.preventDefault()
+    this.props.freshForm()
+  }
+
+  handleEdit (event) {
+    let trainingId = event.target.getAttribute('data-id')
+    $.ajax({
+      url: '/trainings/' + trainingId + '/edit.json',
+      method: 'GET',
+      success: function (json) {
+        this.props.editForm(json)
+      }.bind(this)
+    })
+  }
 
   render () {
     let training_locations = this.props.training.map(function (train, index) {
@@ -45,7 +40,7 @@ class UpcomingTrainings extends React.Component {
               </div>
               <div className='col-md-6'>
                 <div className='btn-group pull-right' role='group' aria-label='...'>
-                  <button type='button' className='btn btn-primary'><i className='fa fa-pencil' aria-hidden='true' /> Edit</button>
+                  <button data-id={train.id} onClick={this.handleEdit.bind(this)} type='button' className='btn btn-primary'><i className='fa fa-pencil' aria-hidden='true' /> Edit</button>
                   <button type='button' className='btn btn-danger'><i className='fa fa-minus-square-o' aria-hidden='true' /> Delete</button>
                 </div>
 
@@ -63,7 +58,7 @@ class UpcomingTrainings extends React.Component {
             <h2>Upcoming Training</h2>
           </div>
           <div className='col-sm-4'>
-            <a className='' href='#'><h1 className='pull-right'><i className='fa fa-plus-square-o' /></h1></a>
+            <a className='' href='#' onClick={this.addTraining.bind(this)}><h1 className='pull-right'><i className='fa fa-plus-square-o' /></h1></a>
           </div>
         </div>
         <div className='row'>

@@ -39,7 +39,18 @@ class TrainingsController < ApplicationController
   end
 
   def edit
+    #Pick out just one trainee id from list of participants
+    @one_trainee_id = @training.participants[0].trainee_id
+    #Find this trainee and extract out the platoon_num
+    @platoon_num = (Trainee.find(@one_trainee_id)).platoon_num
 
+    respond_to do |format|
+      format.json  { render :json => {
+        :training => @training,
+        :platoon_num => @platoon_num
+        }
+      }
+    end
   end
 
   def update
@@ -74,6 +85,6 @@ class TrainingsController < ApplicationController
   end
 
   def training_params
-    params.require(:training).permit(:activity_id, :training_date, :training_time, :location, :duration)
+    params.require(:training).permit(:activity_id, :training_date, :training_time, :location, :duration, :platoon_num)
   end
 end
