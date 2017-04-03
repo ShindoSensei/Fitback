@@ -1,4 +1,4 @@
-/* globals React FixedHeader FixedFooter UpcomingTrainings Form History CurrentSession $ Profile */
+/* globals React FixedHeader FixedFooter UpcomingTrainings Form History CurrentSession $ */
 
 class App extends React.Component {
   constructor (props) {
@@ -7,17 +7,34 @@ class App extends React.Component {
     this.state = {
       training: this.props.training,
       screen: 'upcoming',
-      formDisplay: 'hidden',
-      trainingHist: this.props.trainingHist
-      // screen: 'history'
-      // screen: 'current'
+      trainingHist: this.props.trainingHist,
+      isModalOpen: false,
+      // Form states below
+      activity_id: 1,
+      date: '',
+      time: '00:00:00',
+      place: '',
+      platoon: '',
+      duration: ''
     }
   }
 
-  setRenderScreen (newScreen) {
+  handleFormInput (event) {
+    let inputName = event.target.name
+    console.log(event.target.value)
     this.setState({
-      screen: newScreen
+      [inputName]: event.target.value
     })
+  }
+
+  openModal () {
+    console.log('openModal called in app.jsx')
+    this.setState({ isModalOpen: true })
+  }
+
+  closeModal () {
+    console.log('closeModal called in app.jsx')
+    this.setState({ isModalOpen: false })
   }
 
   updateUpcoming () {
@@ -30,37 +47,75 @@ class App extends React.Component {
         })
         console.log('trainings updated on upcoming page')
         this.setState({
-          formDisplay: 'hidden'
+          isModalOpen: false
         })
       }.bind(this)
     })
   }
+
+  freshForm () {
+    // reset form to fresh
+    this.setState({
+      activity_id: 1,
+      date: '',
+      time: '00:00:00',
+      place: '',
+      platoon: '',
+      duration: ''
+    })
+    this.openModal()
+  }
+
+  handleEditForm (json) {
+    // original json.training.training_time in postgreSQL database is  "2000-01-01T15:00:00.000Z"
+    // need to shorten to HTML format of "HH:mm:ss.SSS"
+    let timeShortened = json.training.training_time.substring(11, 23)
+    this.setState({
+      activity_id: json.training.activity_id,
+      date: json.training.training_date,
+      time: timeShortened,
+      place: json.training.location,
+      platoon: json.platoon_num,
+      duration: json.training.duration
+    })
+    this.openModal()
+  }
+
   render () {
     var screenRender
     if (this.state.screen === 'upcoming') {
-      screenRender = <UpcomingTrainings training={this.state.training} activity={this.props.activity} trainees={this.props.trainees} participants={this.props.participants} />
+      screenRender = <UpcomingTrainings
+        training={this.state.training}
+        openModal={this.openModal.bind(this)} activity={this.props.activity}
+        editForm={this.handleEditForm.bind(this)}
+        freshForm={this.freshForm.bind(this)}
+      />
     } else if (this.state.screen === 'history') {
       screenRender = <History trainingHist={this.state.trainingHist} activity={this.props.activity} />
     } else if (this.state.screen === 'current') {
       screenRender = <CurrentSession />
-    } else if (this.state.screen === 'profile') {
-      screenRender = <Profile />
     }
 
     return (
       <div>
         <FixedHeader />
-        <div>
+        <div className='mainScreen'>
           {screenRender}
-        </div>
-        <div>
           <Form
+            isOpen={this.state.isModalOpen}
+            closeModal={this.closeModal.bind(this)}
             update={this.updateUpcoming.bind(this)}
             activities={this.props.activity}
-            className={'modalForm ' + this.state.formDisplay}
+            handleFormInput={this.handleFormInput.bind(this)}
+            activityId={this.state.activity_id}
+            trainingDate={this.state.date}
+            trainingTime={this.state.time}
+            trainingPlatoon={this.state.platoon}
+            trainingDurn={this.state.duration}
+            trainingPlace={this.state.place}
           />
         </div>
-        <FixedFooter setRenderScreen={this.setRenderScreen.bind(this)} />
+        <FixedFooter />
       </div>
     )
   }

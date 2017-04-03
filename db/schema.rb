@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20170328023952) do
     t.text     "AAR"
     t.integer  "activity_id"
     t.integer  "instructor_id"
+    t.integer  "platoon_num"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["activity_id"], name: "index_trainings_on_activity_id", using: :btree

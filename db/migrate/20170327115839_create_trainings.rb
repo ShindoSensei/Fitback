@@ -10,6 +10,7 @@ class CreateTrainings < ActiveRecord::Migration[5.0]
       t.text :AAR
       t.belongs_to :activity, foreign_key: true
       t.references :instructor, index: true
+      t.integer :platoon_num
       t.timestamps
     end
   end
