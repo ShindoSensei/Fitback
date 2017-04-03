@@ -38,7 +38,6 @@ class UpcomingTrainings extends React.Component {
                 <h5>Date: {train.training_date}</h5>
                 <h5>Time: {("0" + (my_time.getUTCHours())).slice(-2)   + ":" +
                   ("0" + my_time.getMinutes()).slice(-2)}</h5>
->>>>>>> feature/training-form
               </div>
               <div className='col-md-6'>
                 <div className='btn-group pull-right' role='group' aria-label='...'>

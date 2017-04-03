@@ -18,6 +18,11 @@ class App extends React.Component {
       duration: ''
     }
   }
+  setRenderScreen (newScreen) {
+    this.setState({
+      screen: newScreen
+    })
+  }
 
   handleFormInput (event) {
     let inputName = event.target.name
@@ -43,7 +48,7 @@ class App extends React.Component {
       method: 'GET',
       success: function (data) {
         this.setState({
-          training: data
+          training: data.training_all
         })
         console.log('trainings updated on upcoming page')
         this.setState({
@@ -115,7 +120,7 @@ class App extends React.Component {
             trainingPlace={this.state.place}
           />
         </div>
-        <FixedFooter />
+        <FixedFooter setRenderScreen={this.setRenderScreen.bind(this)} />
       </div>
     )
   }
