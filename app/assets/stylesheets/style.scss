@@ -1,18 +1,79 @@
-.fa-3{
-  font-size: 4em;
+html {
+    /* position: relative; */
+    min-height: 100%;
 }
 
+body {
+    margin: 0 0 100px; /* bottom = footer height */
+    padding: 25px;
+    background-color: #E1E9F2;
+    font-family: "Raleway", arial, helvetica, sans-serif;
+}
+#wrap {
+  min-height: 100%;
+  height: auto;
+  margin: 80px auto -80px;
+  padding: 0 0 80px;
+}
+
+p, ol, ul, td {
+  font-family: "Raleway", arial, helvetica, sans-serif;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "Montserrat", arial, helvetica, sans-serif;
+}
+.logo{
+  padding: 10px 0;
+}
+.logo a:hover{
+  background-color: rgba(0,0,0,0);
+}
+.text-white{
+  color: #E1E9F2;
+}
+.navbar-default{
+  background-color: #0D2557;
+  border-color: #0D2557;
+  z-index: 9998;
+}
+.navbar-fixed-bottom{
+  padding: 10px 0;
+}
+.panel-default{
+  border-color: #25A2BD;
+}
+.panel-default > .panel-heading{
+  background-color: #0D2557;
+  border-color: #0D2557;
+  border-width: 2px;
+}
+.panel-title{
+  font-size: 2em;
+}
+.panel-body {
+  background-color: #E1E9F2;
+}
+.bckg1{
+  background-color: #E1E9F2;
+}
 .mainScreen{
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  margin-top: 4em;
+  margin-top: 8em;
   // z-index: 9998;
-  // background: rgba(0, 0, 0, 0.3);
+  background-color: #E1E9F2;
 }
-
+.button-clear{
+  border: none;
+  background-color: rgba(0,0,0,0);
+}
+a:hover{
+  background-color: rgba(0,0,0,0);
+  color: grey;
+}
 .modalForm{
   position: absolute;
   top: 50%;

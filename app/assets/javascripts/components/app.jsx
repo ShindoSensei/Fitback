@@ -106,7 +106,7 @@ class App extends React.Component {
     return (
       <div>
         <FixedHeader />
-        <div className='mainScreen'>
+        <div className='mainScreen' id='wrap'>
           {screenRender}
           <Form
             isOpen={this.state.isModalOpen}
