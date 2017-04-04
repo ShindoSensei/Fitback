@@ -133,7 +133,7 @@ class Form extends React.Component {
           </label>
           <br />
           <button className='btn btn-success btn-xs'>
-              Add Training
+              Submit
             </button>
         </form>
       </div>

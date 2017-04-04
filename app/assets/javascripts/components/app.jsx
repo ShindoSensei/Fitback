@@ -1,4 +1,4 @@
-/* globals React FixedHeader FixedFooter UpcomingTrainings Form History CurrentSession $ */
+/* globals React FixedHeader FixedFooter UpcomingTrainings Form History CurrentSession User $ */
 
 class App extends React.Component {
   constructor (props) {
@@ -105,6 +105,17 @@ class App extends React.Component {
     })
   }
 
+  handleSelect (trainingId) {
+    // this.state.training is an array of training objects
+    let currentTraining = this.state.training.find(function (item) {
+      return item.id === trainingId
+    })
+
+    // let activityId = this.props.activity.find(function(item){
+    //   return item.id === currentTraining.activity_id
+    // })
+  }
+
   render () {
     var screenRender
     if (this.state.screen === 'upcoming') {
@@ -114,11 +125,14 @@ class App extends React.Component {
         editForm={this.handleEditForm.bind(this)}
         freshForm={this.freshForm.bind(this)}
         deleteTraining={this.handleDeleteTraining.bind(this)}
+        handleSelect={this.handleSelect.bind(this)}
       />
     } else if (this.state.screen === 'history') {
       screenRender = <History trainingHist={this.state.trainingHist} activity={this.props.activity} />
     } else if (this.state.screen === 'current') {
       screenRender = <CurrentSession />
+    } else if (this.state.screen === 'user') {
+      screenRender = <User />
     }
 
     return (

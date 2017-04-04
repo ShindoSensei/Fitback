@@ -30,9 +30,14 @@ class UpcomingTrainings extends React.Component {
     })
   }
 
+  handleSelect (event) {
+    let trainingId = event.target.getAttribute('data-id')
+    this.props.handleSelect(trainingId)
+  }
+
   render () {
-    let training_locations = this.props.training.map(function (train, index) {
-      let my_time = new Date(train.training_time)
+    let trainingLocations = this.props.training.map(function (train, index) {
+      let displayTime = new Date(train.training_time)
       let myActivityId = train.activity_id
       let activityObj = this.props.activity.find(function (item) {
         return item.id === myActivityId
@@ -49,11 +54,12 @@ class UpcomingTrainings extends React.Component {
                 <h3>Location: <br />{train.location}</h3>
                 <h5>Platoon: {train.platoon_num}</h5>
                 <h5>Date: {train.training_date}</h5>
-                <h5>Time: {('0' + (my_time.getUTCHours())).slice(-2) + ':' +
-                  ('0' + my_time.getMinutes()).slice(-2)}</h5>
+                <h5>Time: {('0' + (displayTime.getUTCHours())).slice(-2) + ':' +
+                  ('0' + displayTime.getMinutes()).slice(-2)}</h5>
               </div>
               <div className='col-md-6'>
                 <div className='btn-group pull-right' role='group' aria-label='...'>
+                  <button data-id={train.id} onClick={this.handleSelect.bind(this)} type='button' className='btn btn-success'><i className='fa fa-play-circle-o' aria-hidden='true' /> Select</button>
                   <button data-id={train.id} onClick={this.handleEdit.bind(this)} type='button' className='btn btn-primary'><i className='fa fa-pencil' aria-hidden='true' /> Edit</button>
                   <button type='button' data-id={train.id} onClick={this.handleDelete.bind(this)} className='btn btn-danger'><i className='fa fa-minus-square-o' aria-hidden='true' /> Delete</button>
                 </div>
@@ -76,7 +82,7 @@ class UpcomingTrainings extends React.Component {
           </div>
         </div>
         <div className='row'>
-          {training_locations}
+          {trainingLocations}
         </div>
       </div>
     )
