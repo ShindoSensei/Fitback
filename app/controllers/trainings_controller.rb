@@ -35,6 +35,8 @@ class TrainingsController < ApplicationController
     @trainees.each do |trainee|
       Participant.create(trainee_id: trainee.id, training_id: @training_new.id)
     end
+
+    
   end
 
   def after_action_review
@@ -58,23 +60,24 @@ class TrainingsController < ApplicationController
   end
 
   def update
-    #Find all participants of this training and .destroy
-
-    @training.destroy
-    create
-    # @training.update(training_params)
-    #Check if same platoon as previous. If same platoon no change.
-    # @training.participants
-    #If platoon changed, remove participants of this training who were from old platoon.
-
-    #Find all trainees of new platoon and create replacement participants for this training
-
-    # @trainees = Trainee.where(:platoon_num => params[:training][:platoon_num])
-    #
-    # # #Creating replacement participants for training
-    # @trainees.each do |trainee|
-    #   Participant.create(trainee_id: trainee.id, training_id: @training_new.id)
-    # end
+    #Check if platoon number is same as in database
+    if @training.platoon_num == params[:training][:platoon_num]
+    #If same as database , just update params
+      @training.update(training_params)
+    else
+      #If platoon num different, find all old participants and destroy them
+      @participants = Participant.where(:training_id => params[:training][:trainingId])
+      @participants.each do |participant|
+        participant.destroy
+      end
+      #Then update training_params
+      @training.update(training_params)
+      @trainees = Trainee.where(:platoon_num => params[:training][:platoon_num])
+      #Then create new participants
+      @trainees.each do |trainee|
+        Participant.create(trainee_id: trainee.id, training_id: @training.id)
+      end
+    end
   end
 
   def destroy

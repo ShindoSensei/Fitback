@@ -9,8 +9,10 @@ class App extends React.Component {
       screen: 'upcoming',
       trainingHist: this.props.trainingHist,
       isModalOpen: false,
+      isEditForm: false,
       // Form states below
       activity_id: 1,
+      trainingId: '',
       date: '',
       time: '00:00:00',
       place: '',
@@ -50,7 +52,7 @@ class App extends React.Component {
         this.setState({
           training: data.training_all
         })
-        console.log('trainings updated on upcoming page')
+        console.log('trainings updated on upcoming page after create/edit')
         this.setState({
           isModalOpen: false
         })
@@ -66,7 +68,8 @@ class App extends React.Component {
       time: '00:00:00',
       place: '',
       platoon: '',
-      duration: ''
+      duration: '',
+      isEditForm: false
     })
     this.openModal()
   }
@@ -81,9 +84,25 @@ class App extends React.Component {
       time: timeShortened,
       place: json.training.location,
       platoon: json.platoon_num,
-      duration: json.training.duration
+      duration: json.training.duration,
+      isEditForm: true,
+      trainingId: json.training.id
     })
     this.openModal()
+  }
+
+  handleDeleteTraining () {
+    console.log('entering parent handleDeleteTraining')
+    $.ajax({
+      url: '/trainings.json',
+      method: 'GET',
+      success: function (data) {
+        this.setState({
+          training: data.training_all
+        })
+        console.log('trainings updated on upcoming page after delete')
+      }.bind(this)
+    })
   }
 
   render () {
@@ -94,6 +113,7 @@ class App extends React.Component {
         openModal={this.openModal.bind(this)} activity={this.props.activity}
         editForm={this.handleEditForm.bind(this)}
         freshForm={this.freshForm.bind(this)}
+        deleteTraining={this.handleDeleteTraining.bind(this)}
       />
     } else if (this.state.screen === 'history') {
       screenRender = <History trainingHist={this.state.trainingHist} activity={this.props.activity} />
@@ -108,10 +128,12 @@ class App extends React.Component {
           {screenRender}
           <Form
             isOpen={this.state.isModalOpen}
+            isEditForm={this.state.isEditForm}
             closeModal={this.closeModal.bind(this)}
             update={this.updateUpcoming.bind(this)}
             activities={this.props.activity}
             handleFormInput={this.handleFormInput.bind(this)}
+            trainingId={this.state.trainingId}
             activityId={this.state.activity_id}
             trainingDate={this.state.date}
             trainingTime={this.state.time}

@@ -8,9 +8,17 @@ class Form extends React.Component {
   submitFunc (event) {
     event.preventDefault()
     // console.log('this.props.trainingForm.place is ' + this.props.trainingForm)
+    var httpMethod, httpUrl
+    if (this.props.isEditForm) {
+      httpMethod = 'PUT'
+      httpUrl = '/trainings/' + this.props.trainingId
+    } else {
+      httpMethod = 'POST'
+      httpUrl = '/trainings/'
+    }
     $.ajax({
-      url: '/trainings',
-      method: 'POST',
+      url: httpUrl,
+      method: httpMethod,
       data: {
         training: {
           activity_id: this.props.activityId,
@@ -18,7 +26,8 @@ class Form extends React.Component {
           training_time: this.props.trainingTime,
           location: this.props.trainingPlace,
           platoon_num: this.props.trainingPlatoon,
-          duration: this.props.trainingDurn
+          duration: this.props.trainingDurn,
+          trainingId: this.props.trainingId
         }
       },
       success: function (data) {
@@ -38,7 +47,6 @@ class Form extends React.Component {
   render () {
     if (!this.props.isOpen) {
       // hide form at start
-      console.log('Entering render in form.jsx')
       return null
     }
 
