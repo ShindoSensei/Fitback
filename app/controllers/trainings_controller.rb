@@ -6,7 +6,8 @@ class TrainingsController < ApplicationController
     @training_all = Training.where('training_date >= ?', Date.today).order('training_date ASC')
     @activities_all = Activity.all
     @training_hist = Training.select("trainings.*,activities.activity_type").joins(:activity).where("training_date < ?", Date.today).order(training_date: :desc)
-
+    @trainees_all = Trainee.all
+    @participants_all = Participant.all
     respond_to do |format|
       format.json  { render :json => {:training_all => @training_all,
                                   :activities_all => @activities_all,
@@ -36,7 +37,7 @@ class TrainingsController < ApplicationController
       Participant.create(trainee_id: trainee.id, training_id: @training_new.id)
     end
 
-    
+
   end
 
   def after_action_review

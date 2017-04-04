@@ -17,7 +17,13 @@ class App extends React.Component {
       time: '00:00:00',
       place: '',
       platoon: '',
-      duration: ''
+      duration: '',
+      // Current Session states below
+      currentActivity: '',
+      currentTraining: {},
+      currentThres: '',
+      currentTrainees: [],
+      currentParticipants: []
     }
   }
   setRenderScreen (newScreen) {
@@ -106,14 +112,41 @@ class App extends React.Component {
   }
 
   handleSelect (trainingId) {
+    // upon selecting a training on upcoming page, change states associated with current session
     // this.state.training is an array of training objects
-    let currentTraining = this.state.training.find(function (item) {
-      return item.id === trainingId
+    let selectedTraining = this.state.training.find(function (train) {
+      return train.id === parseInt(trainingId)
     })
 
-    // let activityId = this.props.activity.find(function(item){
-    //   return item.id === currentTraining.activity_id
-    // })
+    let selectedActivity = this.props.activity.find(function (act) {
+      return act.id === selectedTraining.activity_id
+    })
+
+    // this.props.participants is array of all participants in database
+    let selectedParticipants = this.props.participants.filter(function (part) {
+      return part.training_id === parseInt(trainingId)
+    })
+
+    let selectedTrainees = this.props.trainees.filter(function (trainee) {
+      return trainee.platoon_num === selectedTraining.platoon_num
+    })
+
+    this.setState({
+      currentActivity: selectedActivity.activity_type,
+      currentThres: selectedActivity.threshold,
+      currentTrainees: selectedTrainees,
+      currentTraining: selectedTraining,
+      currentParticipants: selectedParticipants,
+      screen: 'current'
+    })
+  }
+
+  updateCurrentParticipants (updatedParticipants) {
+    // update state of currentParticipants to update HR
+    this.setState({
+      currentParticipants: updatedParticipants
+    })
+    console.log('successfully updated state with updated participants from server')
   }
 
   render () {
@@ -130,7 +163,12 @@ class App extends React.Component {
     } else if (this.state.screen === 'history') {
       screenRender = <History trainingHist={this.state.trainingHist} activity={this.props.activity} />
     } else if (this.state.screen === 'current') {
-      screenRender = <CurrentSession />
+      screenRender = <CurrentSession
+        activityName={this.state.currentActivity} threshold={this.state.currentThres} currentParticipants={this.state.currentParticipants}
+        currentTrainees={this.state.currentTrainees}
+        currentTraining={this.state.currentTraining}
+        updateCurrentParticipants={this.updateCurrentParticipants.bind(this)}
+      />
     } else if (this.state.screen === 'user') {
       screenRender = <User />
     }

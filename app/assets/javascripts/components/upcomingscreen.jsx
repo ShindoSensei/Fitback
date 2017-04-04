@@ -59,7 +59,9 @@ class UpcomingTrainings extends React.Component {
               </div>
               <div className='col-md-6'>
                 <div className='btn-group pull-right' role='group' aria-label='...'>
-                  <button data-id={train.id} onClick={this.handleSelect.bind(this)} type='button' className='btn btn-success'><i className='fa fa-play-circle-o' aria-hidden='true' /> Select</button>
+                  <button
+                    data-id={train.id}
+                    onClick={this.handleSelect.bind(this)} type='button' className='btn btn-success'><i className='fa fa-play-circle-o' aria-hidden='true' /> Select</button>
                   <button data-id={train.id} onClick={this.handleEdit.bind(this)} type='button' className='btn btn-primary'><i className='fa fa-pencil' aria-hidden='true' /> Edit</button>
                   <button type='button' data-id={train.id} onClick={this.handleDelete.bind(this)} className='btn btn-danger'><i className='fa fa-minus-square-o' aria-hidden='true' /> Delete</button>
                 </div>
