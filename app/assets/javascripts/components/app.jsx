@@ -15,7 +15,7 @@ class App extends React.Component {
       time: '00:00:00',
       place: '',
       platoon: '',
-      duration: ''
+      duration: '',
     }
   }
   setRenderScreen (newScreen) {
@@ -86,6 +86,18 @@ class App extends React.Component {
     this.openModal()
   }
 
+  handleSelect(trainingId){
+    //this.state.training is an array of training objects
+    let currentTraining = this.state.training.find(function(item){
+      return item.id === trainingId
+    })
+
+    // let activityId = this.props.activity.find(function(item){
+    //   return item.id === currentTraining.activity_id
+    // })
+
+  }
+
   render () {
     var screenRender
     if (this.state.screen === 'upcoming') {
@@ -94,6 +106,7 @@ class App extends React.Component {
         openModal={this.openModal.bind(this)} activity={this.props.activity}
         editForm={this.handleEditForm.bind(this)}
         freshForm={this.freshForm.bind(this)}
+        handleSelect={this.handleSelect.bind(this)}
       />
     } else if (this.state.screen === 'history') {
       screenRender = <History trainingHist={this.state.trainingHist} activity={this.props.activity} />
