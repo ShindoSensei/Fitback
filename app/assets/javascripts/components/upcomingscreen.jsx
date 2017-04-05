@@ -61,11 +61,10 @@ class UpcomingTrainings extends React.Component {
                 <div className='btn-group pull-right' role='group' aria-label='...'>
                   <button
                     data-id={train.id}
-                    onClick={this.handleSelect.bind(this)} type='button' className='btn btn-success'><i className='fa fa-play-circle-o' aria-hidden='true' /> Select</button>
-                  <button data-id={train.id} onClick={this.handleEdit.bind(this)} type='button' className='btn btn-primary'><i className='fa fa-pencil' aria-hidden='true' /> Edit</button>
-                  <button type='button' data-id={train.id} onClick={this.handleDelete.bind(this)} className='btn btn-danger'><i className='fa fa-minus-square-o' aria-hidden='true' /> Delete</button>
+                    onClick={this.handleSelect.bind(this)} type='button' className='btn btn-success' disabled={this.props.btnsDisabled}><i className='fa fa-play-circle-o' aria-hidden='true' /> Select</button>
+                  <button data-id={train.id} onClick={this.handleEdit.bind(this)} type='button' className='btn btn-primary' disabled={this.props.btnsDisabled}><i className='fa fa-pencil' aria-hidden='true' /> Edit</button>
+                  <button type='button' data-id={train.id} onClick={this.handleDelete.bind(this)} className='btn btn-danger' disabled={this.props.btnsDisabled}><i className='fa fa-minus-square-o' aria-hidden='true' /> Delete</button>
                 </div>
-
               </div>
             </div>
           </div>

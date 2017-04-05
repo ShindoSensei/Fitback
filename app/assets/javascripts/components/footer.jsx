@@ -30,7 +30,7 @@ class FixedFooter extends React.Component {
                 </a>
               </div>
               <div className='col-xs-2 text-left'>
-                <a onClick={this.submithistoryScreen.bind(this)} >
+                <a onClick={this.submithistoryScreen.bind(this)}>
                   <i className='fa fa-history fa-3' aria-hidden='true' />
                 </a>
               </div>

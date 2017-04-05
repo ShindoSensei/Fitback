@@ -10,6 +10,8 @@ class App extends React.Component {
       trainingHist: this.props.trainingHist,
       isModalOpen: false,
       isEditForm: false,
+      // upcoming states below
+      btnsDisabled: false,
       // Form states below
       activity_id: 1,
       trainingId: '',
@@ -149,6 +151,19 @@ class App extends React.Component {
     console.log('successfully updated state with updated participants from server')
   }
 
+  currentSessionStatus (status) {
+    if (status === 'running') {
+      this.setState({
+        // disable all buttons on upcoming page
+        btnsDisabled: true
+      })
+    } else if (status === 'ended') {
+      this.setState({
+        btnsDisabled: false
+      })
+    }
+  }
+
   render () {
     var screenRender
     if (this.state.screen === 'upcoming') {
@@ -159,6 +174,7 @@ class App extends React.Component {
         freshForm={this.freshForm.bind(this)}
         deleteTraining={this.handleDeleteTraining.bind(this)}
         handleSelect={this.handleSelect.bind(this)}
+        btnsDisabled={this.state.btnsDisabled}
       />
     } else if (this.state.screen === 'history') {
       screenRender = <History trainingHist={this.state.trainingHist} activity={this.props.activity} />
@@ -168,6 +184,7 @@ class App extends React.Component {
         currentTrainees={this.state.currentTrainees}
         currentTraining={this.state.currentTraining}
         updateCurrentParticipants={this.updateCurrentParticipants.bind(this)}
+        currentSessionStatus={this.currentSessionStatus.bind(this)}
       />
     } else if (this.state.screen === 'user') {
       screenRender = <User />
