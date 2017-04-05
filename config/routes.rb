@@ -14,6 +14,10 @@ Rails.application.routes.draw do
 
   get 'static/homepage' => 'static#homepage', as: 'homepage'
 
+  get 'user_edit',  to:'users#edit', as: 'user_edit'
+  put 'user_update/:id', to:'users#update', as: 'user_update'
+
+
 
   devise_for :users, controllers: {
        registrations: 'users/registrations'
@@ -22,6 +26,7 @@ Rails.application.routes.draw do
      devise_scope :user do
        root :to => 'devise/sessions#new'
      end
+  resources :users
 
 
   resources :trainees

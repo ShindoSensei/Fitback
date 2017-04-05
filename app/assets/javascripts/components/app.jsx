@@ -15,13 +15,30 @@ class App extends React.Component {
       time: '00:00:00',
       place: '',
       platoon: '',
-      duration: ''
+      duration: '',
+      // User states below
+      firstName: '',
+      lastName: '',
+      password: '',
+      email: '',
+      userid: ''
+
     }
   }
-  setRenderScreen (newScreen) {
-    this.setState({
-      screen: newScreen
-    })
+  setRenderScreen (newScreen, json) {
+    if (newScreen === 'user') {
+      this.setState({
+        firstName: json.user.first_name,
+        lastName: json.user.last_name,
+        email: json.user.email,
+        userid: json.user.id,
+        screen: newScreen
+      })
+    } else {
+      this.setState({
+        screen: newScreen
+      })
+    }
   }
 
   handleFormInput (event) {
@@ -86,6 +103,10 @@ class App extends React.Component {
     this.openModal()
   }
 
+  handleUserProfile (json) {
+
+  }
+
   render () {
     var screenRender
     if (this.state.screen === 'upcoming') {
@@ -100,7 +121,13 @@ class App extends React.Component {
     } else if (this.state.screen === 'current') {
       screenRender = <CurrentSession />
     } else if (this.state.screen === 'user') {
-      screenRender = <User />
+      screenRender = <User
+        firstName={this.state.firstName}
+        lastName={this.state.lastName}
+        password={this.state.password}
+        email={this.state.email}
+        handleFormInput={this.handleFormInput.bind(this)}
+        />
     }
 
     return (

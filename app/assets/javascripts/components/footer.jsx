@@ -1,4 +1,4 @@
-/* globals React */
+/* globals React $*/
 
 class FixedFooter extends React.Component {
 
@@ -16,7 +16,13 @@ class FixedFooter extends React.Component {
   }
   submituserScreen (event) {
     event.preventDefault()
-    this.props.setRenderScreen('user')
+    $.ajax({
+      url: '/user_edit',
+      method: 'GET',
+      success: function (json) {
+        this.props.setRenderScreen('user', json)
+      }.bind(this)
+    })
   }
   render () {
     return (
