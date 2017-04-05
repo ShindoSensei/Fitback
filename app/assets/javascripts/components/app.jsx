@@ -179,11 +179,13 @@ class App extends React.Component {
     if (status === 'running') {
       this.setState({
         // disable all buttons on upcoming page
-        btnsDisabled: 'disabled'
+        btnsDisabled: 'disabled',
+        footerBtnsDisabled: 'disabled'
       })
     } else if (status === 'ended') {
       this.setState({
-        btnsDisabled: 'enabled'
+        btnsDisabled: 'enabled',
+        footerBtnsDisabled: 'enabled'
       })
     }
   }

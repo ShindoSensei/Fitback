@@ -47,7 +47,7 @@ class UpcomingTrainings extends React.Component {
       })
 
       return (
-        <div key={index} className='col-md-12 col-sm-12'>
+        <div key={index} className='col-md-6 col-md-offset-3 col-xs-12'>
           <div className='panel panel-default'>
             <div className='panel-heading'>
               <h1 className='panel-title'>Activity: {activityObj.activity_type}</h1>
@@ -83,10 +83,10 @@ class UpcomingTrainings extends React.Component {
     return (
       <div className='container bckg1'>
         <div className='row'>
-          <div className='col-sm-8'>
+          <div className='col-xs-8'>
             <h2>Upcoming Training</h2>
           </div>
-          <div className='col-sm-4'>
+          <div className='col-xs-4'>
             <a href='#' onClick={this.addTraining.bind(this)}><h1 className='pull-right'><i className='fa fa-plus-square-o' /></h1></a>
           </div>
         </div>
