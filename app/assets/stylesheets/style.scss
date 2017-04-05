@@ -27,6 +27,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: "Montserrat", arial, helvetica, sans-serif;
   color: #1C1919;
 }
+a, a:visited {
+color: #1C1919 !important;
+}
 .logo{
   padding: 10px 0;
 }
@@ -118,6 +121,9 @@ a:hover{
 }
 .min-height{
   min-height: 1em;
+}
+.margin-top-header{
+  margin-top: 8em;
 }
 .disabled {
     pointer-events: none;

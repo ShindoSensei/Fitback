@@ -47,7 +47,7 @@ class UpcomingTrainings extends React.Component {
       })
 
       return (
-        <div key={index} className='col-md-12 col-sm-12'>
+        <div key={index} className='col-md-8 col-md-offset-2 col-xs-12'>
           <div className='panel panel-default'>
             <div className='panel-heading'>
               <h1 className='panel-title'>Activity: {activityObj.activity_type}</h1>
@@ -62,11 +62,9 @@ class UpcomingTrainings extends React.Component {
               </div>
               <div className='col-md-6'>
                 <div className='pull-right' role='group' aria-label='...'>
-                  <button
-                    data-id={train.id}
-                    onClick={this.handleSelect.bind(this)} type='button' className={'btn btn-success ' + this.props.btnsDisabled}>
-                    <i className='fa fa-play-circle-o' aria-hidden='true' /> Select</button>
-
+                  <a href='#'
+                    onClick={this.handleSelect.bind(this)} className={this.props.btnsDisabled}>
+                    <i data-id={train.id} className='fa fa-play-circle-o fa-3x small-padding-right' aria-hidden='true' /></a>
                   <a href='#' onClick={this.handleEdit.bind(this)} className={this.props.btnsDisabled}><i data-id={train.id} className='fa fa-pencil-square-o fa-3x small-padding-right' aria-hidden='true' /></a>
 
                   <a href='#' onClick={this.handleDelete.bind(this)} className={this.props.btnsDisabled}>
@@ -83,12 +81,14 @@ class UpcomingTrainings extends React.Component {
     return (
       <div className='container bckg1'>
         <div className='row'>
-          <div className='col-sm-8'>
+          <div className='col-md-8 col-md-offset-2 col-xs-12'>
+          <div className='col-xs-8'>
             <h2>Upcoming Training</h2>
           </div>
-          <div className='col-sm-4'>
+          <div className='col-xs-4'>
             <a href='#' onClick={this.addTraining.bind(this)}><h1 className='pull-right'><i className='fa fa-plus-square-o' /></h1></a>
           </div>
+        </div>
         </div>
         <div className='row'>
           {trainingLocations}
