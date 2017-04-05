@@ -8,6 +8,7 @@ class UpcomingTrainings extends React.Component {
   }
 
   handleEdit (event) {
+    event.preventDefault()
     let trainingId = event.target.getAttribute('data-id')
     $.ajax({
       url: '/trainings/' + trainingId + '/edit.json',
@@ -40,9 +41,9 @@ class UpcomingTrainings extends React.Component {
                   ("0" + my_time.getMinutes()).slice(-2)}</h5>
               </div>
               <div className='col-md-6'>
-                <div className='btn-group pull-right' role='group' aria-label='...'>
-                  <button data-id={train.id} onClick={this.handleEdit.bind(this)} type='button' className='btn btn-primary'><i className='fa fa-pencil' aria-hidden='true' /> Edit</button>
-                  <button type='button' className='btn btn-danger'><i className='fa fa-minus-square-o' aria-hidden='true' /> Delete</button>
+                <div className='pull-right' role='group' aria-label='...'>
+                  <a href='#' onClick={this.handleEdit.bind(this)}><i data-id={train.id} className='fa fa-pencil-square-o fa-3x small-padding-right' aria-hidden='true' /></a>
+                  <a href='#'><i className='fa fa-trash-o fa-3x' aria-hidden='true' /></a>
                 </div>
 
               </div>
@@ -59,7 +60,7 @@ class UpcomingTrainings extends React.Component {
             <h2>Upcoming Training</h2>
           </div>
           <div className='col-sm-4'>
-            <a className='' href='#' onClick={this.addTraining.bind(this)}><h1 className='pull-right'><i className='fa fa-plus-square-o' /></h1></a>
+            <a href='#' onClick={this.addTraining.bind(this)}><h1 className='pull-right'><i className='fa fa-plus-square-o' /></h1></a>
           </div>
         </div>
         <div className='row'>

@@ -15,7 +15,8 @@ class App extends React.Component {
       time: '00:00:00',
       place: '',
       platoon: '',
-      duration: ''
+      duration: '',
+      footerBtnsDisabled: false
     }
   }
   setRenderScreen (newScreen) {
@@ -34,12 +35,19 @@ class App extends React.Component {
 
   openModal () {
     console.log('openModal called in app.jsx')
-    this.setState({ isModalOpen: true })
+    this.setState({
+       isModalOpen: true ,
+       footerBtnsDisabled: "disabled",
+
+     })
   }
 
   closeModal () {
     console.log('closeModal called in app.jsx')
-    this.setState({ isModalOpen: false })
+    this.setState({
+      isModalOpen: false,
+    footerBtnsDisabled: "enabled",
+   })
   }
 
   updateUpcoming () {
@@ -122,7 +130,7 @@ class App extends React.Component {
             trainingPlace={this.state.place}
           />
         </div>
-        <FixedFooter setRenderScreen={this.setRenderScreen.bind(this)} />
+        <FixedFooter setRenderScreen={this.setRenderScreen.bind(this)} footerBtnsDisabled={this.state.footerBtnsDisabled} />
       </div>
     )
   }
