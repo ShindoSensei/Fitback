@@ -15,8 +15,11 @@ class MqttController < ApplicationController
 
     arr.push(@training.id.to_s)
     MqttJob.set(wait: 2.seconds).perform_later(arr)
-    # MqttJob.set(wait: 2.seconds).perform_later("device1", "device2")
-    redirect_to root_path
+
+    respond_to do |format|
+      format.json  { render :json => {:training => @training}}
+    end
+
   end
 
   def stop_training
@@ -31,7 +34,6 @@ class MqttController < ApplicationController
     clientOff.publish('startstop', @training.id.to_s , retain=false)
     clientOff.disconnect()
 
-    redirect_to root_path
   end
 
   private
@@ -39,7 +41,4 @@ class MqttController < ApplicationController
   def get_training_id
       @training = Training.find(params[:id])
   end
-
-
-
 end

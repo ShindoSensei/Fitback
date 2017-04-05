@@ -9,14 +9,15 @@ class History extends React.Component {
         <div key={index} className="col-md-12 col-sm-12">
           <div className="panel panel-default">
             <div className="panel-heading">
-              <h1 className="panel-title">Activity: {train.activity_type}</h1>
+              <h1 className="panel-title text-white">Activity: {train.activity_type}</h1>
             </div>
             <div className="panel-body">
               <div className="col-md-6">
-                <p>Date: {train.training_date}</p>
-                <p>Time: {("0" + (mytime.getUTCHours())).slice(-2)   + ":" +
-                  ("0" + mytime.getMinutes()).slice(-2)}</p>
-                <p>AAR: {train.AAR}</p>
+                <h3>Location: {train.location}</h3>
+                <h5>Date: {train.training_date}</h5>
+                <h5>Time: {("0" + (mytime.getUTCHours())).slice(-2)   + ":" +
+                  ("0" + mytime.getMinutes()).slice(-2)}</h5>
+                <h5>AAR: {train.AAR}</h5>
               </div>
             </div>
           </div>

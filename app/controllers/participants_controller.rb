@@ -15,5 +15,4 @@ class ParticipantsController < ApplicationController
     end
   end
 
-
 end
