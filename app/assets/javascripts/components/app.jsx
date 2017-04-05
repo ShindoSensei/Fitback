@@ -9,8 +9,12 @@ class App extends React.Component {
       screen: 'upcoming',
       trainingHist: this.props.trainingHist,
       isModalOpen: false,
+      isEditForm: false,
+      // upcoming states below
+      btnsDisabled: 'enabled',
       // Form states below
       activity_id: 1,
+      trainingId: '',
       date: '',
       time: '00:00:00',
       place: '',
@@ -22,7 +26,13 @@ class App extends React.Component {
       password: '',
       email: '',
       userid: '',
-      footerBtnsDisabled: 'enabled'
+      footerBtnsDisabled: 'enabled',
+      // Current Session states below
+      currentActivity: '',
+      currentTraining: {},
+      currentThres: '',
+      currentTrainees: [],
+      currentParticipants: []
     }
   }
   setRenderScreen (newScreen, json) {
@@ -52,18 +62,18 @@ class App extends React.Component {
   openModal () {
     console.log('openModal called in app.jsx')
     this.setState({
-       isModalOpen: true ,
-       footerBtnsDisabled: "disabled",
+      isModalOpen: true,
+      footerBtnsDisabled: 'disabled'
 
-     })
+    })
   }
 
   closeModal () {
     console.log('closeModal called in app.jsx')
     this.setState({
       isModalOpen: false,
-    footerBtnsDisabled: "enabled",
-   })
+      footerBtnsDisabled: 'enabled'
+    })
   }
 
   updateUpcoming () {
@@ -74,7 +84,7 @@ class App extends React.Component {
         this.setState({
           training: data.training_all
         })
-        console.log('trainings updated on upcoming page')
+        console.log('trainings updated on upcoming page after create/edit')
         this.setState({
           isModalOpen: false
         })
@@ -90,7 +100,8 @@ class App extends React.Component {
       time: '00:00:00',
       place: '',
       platoon: '',
-      duration: ''
+      duration: '',
+      isEditForm: false
     })
     this.openModal()
   }
@@ -105,13 +116,76 @@ class App extends React.Component {
       time: timeShortened,
       place: json.training.location,
       platoon: json.platoon_num,
-      duration: json.training.duration
+      duration: json.training.duration,
+      isEditForm: true,
+      trainingId: json.training.id
     })
     this.openModal()
   }
 
-  handleUserProfile (json) {
+  handleDeleteTraining () {
+    console.log('entering parent handleDeleteTraining')
+    $.ajax({
+      url: '/trainings.json',
+      method: 'GET',
+      success: function (data) {
+        this.setState({
+          training: data.training_all
+        })
+        console.log('trainings updated on upcoming page after delete')
+      }.bind(this)
+    })
+  }
 
+  handleSelect (trainingId) {
+    // upon selecting a training on upcoming page, change states associated with current session
+    // this.state.training is an array of training objects
+    let selectedTraining = this.state.training.find(function (train) {
+      return train.id === parseInt(trainingId)
+    })
+
+    let selectedActivity = this.props.activity.find(function (act) {
+      return act.id === selectedTraining.activity_id
+    })
+
+    // this.props.participants is array of all participants in database
+    let selectedParticipants = this.props.participants.filter(function (part) {
+      return part.training_id === parseInt(trainingId)
+    })
+
+    let selectedTrainees = this.props.trainees.filter(function (trainee) {
+      return trainee.platoon_num === selectedTraining.platoon_num
+    })
+
+    this.setState({
+      currentActivity: selectedActivity.activity_type,
+      currentThres: selectedActivity.threshold,
+      currentTrainees: selectedTrainees,
+      currentTraining: selectedTraining,
+      currentParticipants: selectedParticipants,
+      screen: 'current'
+    })
+  }
+
+  updateCurrentParticipants (updatedParticipants) {
+    // update state of currentParticipants to update HR
+    this.setState({
+      currentParticipants: updatedParticipants
+    })
+    console.log('successfully updated state with updated participants from server')
+  }
+
+  currentSessionStatus (status) {
+    if (status === 'running') {
+      this.setState({
+        // disable all buttons on upcoming page
+        btnsDisabled: 'disabled'
+      })
+    } else if (status === 'ended') {
+      this.setState({
+        btnsDisabled: 'enabled'
+      })
+    }
   }
 
   render () {
@@ -122,11 +196,20 @@ class App extends React.Component {
         openModal={this.openModal.bind(this)} activity={this.props.activity}
         editForm={this.handleEditForm.bind(this)}
         freshForm={this.freshForm.bind(this)}
+        deleteTraining={this.handleDeleteTraining.bind(this)}
+        handleSelect={this.handleSelect.bind(this)}
+        btnsDisabled={this.state.btnsDisabled}
       />
     } else if (this.state.screen === 'history') {
       screenRender = <History trainingHist={this.state.trainingHist} activity={this.props.activity} />
     } else if (this.state.screen === 'current') {
-      screenRender = <CurrentSession />
+      screenRender = <CurrentSession
+        activityName={this.state.currentActivity} threshold={this.state.currentThres} currentParticipants={this.state.currentParticipants}
+        currentTrainees={this.state.currentTrainees}
+        currentTraining={this.state.currentTraining}
+        updateCurrentParticipants={this.updateCurrentParticipants.bind(this)}
+        currentSessionStatus={this.currentSessionStatus.bind(this)}
+      />
     } else if (this.state.screen === 'user') {
       screenRender = <User
         firstName={this.state.firstName}
@@ -144,10 +227,12 @@ class App extends React.Component {
           {screenRender}
           <Form
             isOpen={this.state.isModalOpen}
+            isEditForm={this.state.isEditForm}
             closeModal={this.closeModal.bind(this)}
             update={this.updateUpcoming.bind(this)}
             activities={this.props.activity}
             handleFormInput={this.handleFormInput.bind(this)}
+            trainingId={this.state.trainingId}
             activityId={this.state.activity_id}
             trainingDate={this.state.date}
             trainingTime={this.state.time}

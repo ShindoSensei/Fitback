@@ -1,4 +1,4 @@
-/* globals React $*/
+/* globals React $ */
 
 class FixedFooter extends React.Component {
 

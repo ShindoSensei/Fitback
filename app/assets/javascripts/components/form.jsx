@@ -7,10 +7,18 @@ class Form extends React.Component {
 
   submitFunc (event) {
     event.preventDefault()
-        // console.log('this.props.trainingForm.place is ' + this.props.trainingForm)
+    // console.log('this.props.trainingForm.place is ' + this.props.trainingForm)
+    var httpMethod, httpUrl
+    if (this.props.isEditForm) {
+      httpMethod = 'PUT'
+      httpUrl = '/trainings/' + this.props.trainingId
+    } else {
+      httpMethod = 'POST'
+      httpUrl = '/trainings/'
+    }
     $.ajax({
-      url: '/trainings',
-      method: 'POST',
+      url: httpUrl,
+      method: httpMethod,
       data: {
         training: {
           activity_id: this.props.activityId,
@@ -18,7 +26,8 @@ class Form extends React.Component {
           training_time: this.props.trainingTime,
           location: this.props.trainingPlace,
           platoon_num: this.props.trainingPlatoon,
-          duration: this.props.trainingDurn
+          duration: this.props.trainingDurn,
+          trainingId: this.props.trainingId
         }
       },
       success: function (data) {
@@ -37,8 +46,6 @@ class Form extends React.Component {
 
   render () {
     if (!this.props.isOpen) {
-            // hide form at start
-      console.log('Entering render in form.jsx')
       return null
     }
 
@@ -60,30 +67,30 @@ class Form extends React.Component {
         <div className='col-md-12'>
           <form onSubmit={this.submitFunc.bind(this)} className='formBox'>
             <label>
-                      Activity:
-                    </label>
+              Activity:
+            </label>
             <select name='activity_id' value={this.props.activityId} onChange={this.onInputChange.bind(this)} required>
               {allActivities}
             </select>
             <label>
-                      Location:
-                    </label>
+              Location:
+            </label>
             <input name='place' type='text' value={this.props.trainingPlace} onChange={this.onInputChange.bind(this)} placeholder='Enter Training Location' required />
             <label>
-                      Platoon:
-                    </label>
+              Platoon:
+            </label>
             <input name='platoon' type='number' value={this.props.trainingPlatoon} onChange={this.onInputChange.bind(this)} placeholder='Enter Platoon no.' required />
             <label>
-                      Date:
-                    </label>
+              Date:
+            </label>
             <input name='date' type='date' value={this.props.trainingDate} onChange={this.onInputChange.bind(this)} required />
             <label>
-                      Time:
-                    </label>
+              Time:
+            </label>
             <input name='time' type='time' value={this.props.trainingTime} onChange={this.onInputChange.bind(this)} required />
             <label>
-                      Duration:
-                    </label>
+              Duration:
+            </label>
             <input name='duration' type='number' value={this.props.trainingDurn} onChange={this.onInputChange.bind(this)} placeholder='Enter in mins' required />
             <br />
             <br />
