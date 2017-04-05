@@ -21,8 +21,8 @@ class App extends React.Component {
       lastName: '',
       password: '',
       email: '',
-      userid: ''
-
+      userid: '',
+      footerBtnsDisabled: 'enabled'
     }
   }
   setRenderScreen (newScreen, json) {
@@ -51,12 +51,19 @@ class App extends React.Component {
 
   openModal () {
     console.log('openModal called in app.jsx')
-    this.setState({ isModalOpen: true })
+    this.setState({
+       isModalOpen: true ,
+       footerBtnsDisabled: "disabled",
+
+     })
   }
 
   closeModal () {
     console.log('closeModal called in app.jsx')
-    this.setState({ isModalOpen: false })
+    this.setState({
+      isModalOpen: false,
+    footerBtnsDisabled: "enabled",
+   })
   }
 
   updateUpcoming () {
@@ -133,7 +140,7 @@ class App extends React.Component {
     return (
       <div>
         <FixedHeader />
-        <div className='mainScreen'>
+        <div className='mainScreen' id='wrap'>
           {screenRender}
           <Form
             isOpen={this.state.isModalOpen}
@@ -149,7 +156,7 @@ class App extends React.Component {
             trainingPlace={this.state.place}
           />
         </div>
-        <FixedFooter setRenderScreen={this.setRenderScreen.bind(this)} />
+        <FixedFooter setRenderScreen={this.setRenderScreen.bind(this)} footerBtnsDisabled={this.state.footerBtnsDisabled} />
       </div>
     )
   }
