@@ -84,7 +84,7 @@ class UpcomingTrainings extends React.Component {
       <div className='container bckg1'>
         <div className='row'>
           <div className='col-xs-8'>
-            <h2>Upcoming Training</h2>
+            <h2 className='upcomingHeader'>Upcoming Training</h2>
           </div>
           <div className='col-xs-4'>
             <a href='#' onClick={this.addTraining.bind(this)}><h1 className='pull-right'><i className='fa fa-plus-square-o' /></h1></a>

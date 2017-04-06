@@ -1,13 +1,26 @@
 /* globals React $ */
 class Form extends React.Component {
 
+  constructor () {
+    super()
+    this.state = {
+      validateHide: false,
+      validateMsg: ''
+    }
+  }
+
   onInputChange (event) {
     this.props.handleFormInput(event)
   }
 
   submitFunc (event) {
     event.preventDefault()
+    // 2017-04-30
+    // if(this.props.trainingDate < Date.now().getDate)
     // console.log('this.props.trainingForm.place is ' + this.props.trainingForm)
+    console.log('this.props.trainingDate is ' + this.props.trainingDate)
+    console.log('this.props.trainingTime is ' + this.props.trainingTime)
+
     var httpMethod, httpUrl
     if (this.props.isEditForm) {
       httpMethod = 'PUT'
@@ -48,6 +61,14 @@ class Form extends React.Component {
     if (!this.props.isOpen) {
       return null
     }
+    // uniquePlatTrainees array of trainees with platoon_num field
+    let allPlatoonNum = this.props.uniquePlatTrainees.map(function (trainee, index) {
+      return (
+        <option key={index} value={trainee.platoon_num}>
+          {trainee.platoon_num}
+        </option>
+      )
+    })
 
     let allActivities = this.props.activities.map(function (activity, index) {
       return (
@@ -59,6 +80,9 @@ class Form extends React.Component {
 
     return (
       <div className='modalForm'>
+        <div className='container' hidden={this.state.validateHide}>
+          <p>{this.state.validateMsg}</p>
+        </div>
         <div className='col-md-12 min-height'>
           <a onClick={this.handleClose.bind(this)}>
             <i className='fa fa-times fa-2x fa-pull-right' aria-hidden='true' />
@@ -79,7 +103,9 @@ class Form extends React.Component {
             <label>
               Platoon:
             </label>
-            <input name='platoon' type='number' value={this.props.trainingPlatoon} onChange={this.onInputChange.bind(this)} placeholder='Enter Platoon no.' required />
+            <select name='platoon' value={this.props.trainingPlatoon} onChange={this.onInputChange.bind(this)} required>
+              {allPlatoonNum}
+            </select>
             <label>
               Date:
             </label>
@@ -91,7 +117,7 @@ class Form extends React.Component {
             <label>
               Duration:
             </label>
-            <input name='duration' type='number' value={this.props.trainingDurn} onChange={this.onInputChange.bind(this)} placeholder='Enter in mins' required />
+            <input name='duration' type='number' min='1' value={this.props.trainingDurn} onChange={this.onInputChange.bind(this)} placeholder='Enter in mins' required />
             <br />
             <br />
             <button className='btn btn-success btn-large'> Submit </button>

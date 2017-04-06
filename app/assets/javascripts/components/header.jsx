@@ -8,8 +8,7 @@ class FixedHeader extends React.Component {
           <div className='container'>
             <div className='row'>
               <div className='col-md-6 col-md-offset-3 text-center logo'>
-                <a href="/" title="Pulse">
-                  <img src="/assets/pulse.png" width="200" height="70" />
+                <a href='/' title='Pulse'>
                 </a>
               </div>
             </div>

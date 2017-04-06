@@ -8,7 +8,8 @@ html {
 body {
     margin: 0 0 100px; /* bottom = footer height */
     padding: 25px;
-    background-color: #FFFFFF;
+    // background-color: #FFFFFF;
+    background-attachment: fixed;
     font-family: "Raleway", arial, helvetica, sans-serif;
 
 }
@@ -37,29 +38,46 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   color: #FFFFFF;
 }
 .navbar-default{
-  background-color: #FB732D;
-  border-color: #FB732D;
+  // #FB732D
+  background-color: #000000;
+  opacity:0.75;
+  border-color: #000000;
   z-index: 9998;
 }
+
 .navbar-fixed-bottom{
   padding: 10px 0;
 }
 .panel-default{
-  border-color: #FB732D;
+  border-color: #000000;
   border-width: 2px;
+  opacity:0.8;
 }
 .panel-default > .panel-heading{
-  background-color: #FB732D;
-  border-color: #FB732D;
+  background-color: #FFFFFF;
+  border-color: #FFFFFF;
+  opacity:0.8;
 }
 .panel-title{
   font-size: 2em;
+  color:#000000;
 }
 .panel-body {
-  background-color: #FAFAFA;
+  // background-color: #FFFFFF;
+  background-color:transparent;
+  opacity:0.9;
 }
 .bckg1{
-  background-color: #FFFFFF;
+  // background-color: #A9AEB0;
+  // background-image: image-url("Seal.jpg");
+  z-index:1
+
+}
+
+.upcomingHeader{
+  color:#FFFFFF;
+  opacity:0.8;
+  margin-left:14em;
 }
 .mainScreen{
   position: absolute;
@@ -68,8 +86,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   width: 100%;
   height: 100%;
   margin-top: 8em;
-  // z-index: 9998;
-  background-color: #FFFFFF;
+  z-index: 2;
+  // background-color: #A9AEB0;
+
 }
 .button-clear{
   border: none;

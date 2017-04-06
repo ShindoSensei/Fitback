@@ -241,6 +241,7 @@ class App extends React.Component {
             trainingPlatoon={this.state.platoon}
             trainingDurn={this.state.duration}
             trainingPlace={this.state.place}
+            uniquePlatTrainees={this.props.trainees_unique_plat}
           />
         </div>
         <FixedFooter setRenderScreen={this.setRenderScreen.bind(this)} footerBtnsDisabled={this.state.footerBtnsDisabled} />
