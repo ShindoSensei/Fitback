@@ -1,3 +1,5 @@
+<%= render "devise/shared/header" %>
+<div class='margin-top-header col-xs-8 col-xs-offset-2'>
 <h2>Resend confirmation instructions</h2>
 
 <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
@@ -14,3 +16,4 @@
 <% end %>
 
 <%= render "devise/shared/links" %>
+</div>

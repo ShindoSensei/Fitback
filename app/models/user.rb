@@ -5,4 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   has_many :trainings, class_name: 'Training', foreign_key:'instructor_id'
   has_many :instructors, through: :trainings, source: :instructor
+
 end

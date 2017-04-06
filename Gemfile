@@ -21,7 +21,9 @@ gem 'coffee-rails', '~> 4.2'
 gem 'devise'
 gem 'pry'
 gem 'mqtt'
-
+gem 'react-rails'
+# gem 'sprockets-es6'
+gem 'bootstrap_form'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
