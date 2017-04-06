@@ -31,9 +31,6 @@ class History extends React.Component {
           <div className="col-xs-8">
             <h2 className='text-white'>Training History</h2>
           </div>
-          <div className="col-xs-4">
-            <a href="#"><h1 className="pull-right text-white"><i className="fa fa-plus-square-o"></i></h1></a>
-          </div>
         </div>
           <div className="row">
             {trainingHistory}
