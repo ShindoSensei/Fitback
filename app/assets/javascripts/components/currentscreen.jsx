@@ -145,9 +145,9 @@ class CurrentSession extends React.Component {
       let lastHeartRate = corresParticipant.heart_rate.slice(-1)[0]
       return (
         <div key={index} className='col-sm-12'>
-          <h3>
+          <h4 className='text-white'>
             {trainee.first_name + ' ' + trainee.last_name + ': ' + lastHeartRate + '/' + (220 - trainee.age) + ' (' + Math.round((lastHeartRate / (220 - trainee.age)) * 100) + '%)' }
-          </h3>
+          </h4>
         </div>
       )
     })
@@ -156,29 +156,33 @@ class CurrentSession extends React.Component {
       <div className='container'>
         <div className='row'>
           <div className='col-sm-8 col-sm-offset-2'>
-            <h1>Current Session</h1>
-            <h3>
-              Activity: {this.props.activityName + ' (Max ' + this.props.threshold + '%)'}
-            </h3>
-            <h3>Location: {currentTraining.location}</h3>
-            {renderTrainees}
-            <div className='col-sm-6 text-center'>
-              <button onClick={this.startTraining.bind(this)}>
-                <i className='fa fa-play-circle-o fa-5x' aria-hidden='true' />
-              </button>
-              <i className='fa fa-spinner fa-pulse fa-3x fa-fw' />
-            </div>
-            <div className='col-sm-6 text-center'>
-              <button onClick={this.stopTraining.bind(this)}>
-                <i className='fa fa-stop-circle-o fa-5x' aria-hidden='true' />
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className='row'>
-          <div className='col-sm-8 col-sm-offset-2'>
-            <h1>Notifications</h1>
-            <h3>{this.state.HrNotify}</h3>
+            <div className='panel panel-default'>
+              <div className='panel-heading'>
+                <h1 className='panel-title text-white'>Current Session</h1>
+              </div>
+              <div className='panel-body'>
+                <h3 className='text-white'>
+                  Activity: {this.props.activityName + ' (Max ' + this.props.threshold + '%)'}
+                </h3>
+                <h3 className='text-white'>Location: {currentTraining.location}</h3>
+                {renderTrainees}
+                <div className='col-sm-12 text-center'>
+                  <button className='button-clear' onClick={this.startTraining.bind(this)}>
+                    <i className='fa fa-play-circle-o fa-5x text-white small-padding-right' aria-hidden='true' />
+                  </button>
+                  <i className='fa fa-spinner fa-pulse fa-3x fa-fw text-white' />
+                  <button className='button-clear' onClick={this.stopTraining.bind(this)}>
+                    <i className='fa fa-stop-circle-o fa-5x text-white' aria-hidden='true' />
+                  </button>
+                </div>
+
+                  <div className='col-sm-12'>
+                    <h3 className='text-white'>Notifications</h3>
+                    <h4 className='text-white'>{this.state.HrNotify}</h4>
+                  </div>
+              </div>
+
+
           </div>
         </div>
         <PopupAAR
@@ -191,6 +195,7 @@ class CurrentSession extends React.Component {
           remark={this.state.remark}
         />
       </div>
+    </div>
     )
   }
 }

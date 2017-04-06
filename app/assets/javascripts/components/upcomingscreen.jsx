@@ -47,30 +47,28 @@ class UpcomingTrainings extends React.Component {
       })
 
       return (
-        <div key={index} className='col-md-12 col-sm-12'>
+        <div key={index} className='col-xs-12'>
           <div className='panel panel-default'>
             <div className='panel-heading'>
-              <h1 className='panel-title'>Activity: {activityObj.activity_type}</h1>
+              <h1 className='panel-title text-white'>Activity: {activityObj.activity_type}</h1>
             </div>
             <div className='panel-body'>
-              <div className='col-md-6'>
-                <h3>Location: <br />{train.location}</h3>
-                <h5>Platoon: {train.platoon_num}</h5>
-                <h5>Date: {train.training_date}</h5>
-                <h5>Time: {('0' + (displayTime.getUTCHours())).slice(-2) + ':' +
+              <div className='col-xs-12'>
+                <h3 className='text-white'>Location: {train.location}</h3>
+                <h5 className='text-white'>Platoon: {train.platoon_num}</h5>
+                <h5 className='text-white'>Date: {train.training_date}</h5>
+                <h5 className='text-white'>Time: {('0' + (displayTime.getUTCHours())).slice(-2) + ':' +
                   ('0' + displayTime.getMinutes()).slice(-2)}</h5>
               </div>
-              <div className='col-md-6'>
+              <div className='col-xs-12'>
                 <div className='pull-right' role='group' aria-label='...'>
-                  <button
-                    data-id={train.id}
-                    onClick={this.handleSelect.bind(this)} type='button' className={'btn btn-success ' + this.props.btnsDisabled}>
-                    <i className='fa fa-play-circle-o' aria-hidden='true' /> Select</button>
-
-                  <a href='#' onClick={this.handleEdit.bind(this)} className={this.props.btnsDisabled}><i data-id={train.id} className='fa fa-pencil-square-o fa-3x small-padding-right' aria-hidden='true' /></a>
+                  <a href='#'
+                    onClick={this.handleSelect.bind(this)} className={this.props.btnsDisabled}>
+                    <i data-id={train.id} className='fa fa-play-circle-o fa-3x small-padding-right text-white' aria-hidden='true' /></a>
+                  <a href='#' onClick={this.handleEdit.bind(this)} className={this.props.btnsDisabled}><i data-id={train.id} className='fa fa-pencil-square-o fa-3x small-padding-right text-white' aria-hidden='true' /></a>
 
                   <a href='#' onClick={this.handleDelete.bind(this)} className={this.props.btnsDisabled}>
-                    <i data-id={train.id} className='fa fa-trash-o fa-3x ' aria-hidden='true' />
+                    <i data-id={train.id} className='fa fa-trash-o fa-3x text-white' aria-hidden='true' />
                   </a>
                 </div>
               </div>
@@ -81,13 +79,13 @@ class UpcomingTrainings extends React.Component {
     }.bind(this))
 
     return (
-      <div className='container bckg1'>
+      <div className='container'>
         <div className='row'>
-          <div className='col-sm-8'>
-            <h2>Upcoming Training</h2>
+          <div className='col-xs-8'>
+            <h2 className='text-white'>Upcoming Training</h2>
           </div>
-          <div className='col-sm-4'>
-            <a href='#' onClick={this.addTraining.bind(this)}><h1 className='pull-right'><i className='fa fa-plus-square-o' /></h1></a>
+          <div className='col-xs-4'>
+            <a href='#' onClick={this.addTraining.bind(this)}><h1 className='pull-right text-white'><i className='fa fa-plus-square-o' /></h1></a>
           </div>
         </div>
         <div className='row'>
