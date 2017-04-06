@@ -13,7 +13,8 @@ class TrainingsController < ApplicationController
     respond_to do |format|
       format.json  { render :json => {:training_all => @training_all,
                                   :activities_all => @activities_all,
-                                  :training_hist => @training_hist }}
+                                  :training_hist => @training_hist,
+                                  :participants_all => @participants_all }}
       format.html {render :index}
     end
   end

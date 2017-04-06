@@ -77,6 +77,20 @@ class Form extends React.Component {
         </option>
       )
     })
+    // Setting up today's date obj
+    let dateObj = new Date()
+    let dd = dateObj.getDate()
+    let mm = dateObj.getMonth() + 1 // January is 0!
+    let yyyy = dateObj.getFullYear()
+    if (dd < 10) {
+      dd = '0' + dd
+    }
+    if (mm < 10) {
+      mm = '0' + mm
+    }
+
+    let dateToday = yyyy + '-' + mm + '-' + dd
+    // console.log('dateToday is ' + dateToday)
 
     return (
       <div className='modalForm'>
@@ -109,7 +123,7 @@ class Form extends React.Component {
             <label>
               Date:
             </label>
-            <input name='date' type='date' value={this.props.trainingDate} onChange={this.onInputChange.bind(this)} required />
+            <input name='date' type='date' value={this.props.trainingDate} onChange={this.onInputChange.bind(this)} min={dateToday} required />
             <label>
               Time:
             </label>

@@ -98,7 +98,9 @@ class CurrentSession extends React.Component {
     // alertParticipants is array of participants in danger
     let alertParticipants = currentParticipants.filter(function (part) {
       // For each participant which goes through filter function, check lastHeartRate and check who corresponding trainee is
+      // console.log('componentreceive props HR is ' + part.heart_rate.slice(-1)[0])
       let lastHeartRate = part.heart_rate.slice(-1)[0]
+
       let corresTrainee = currentTrainees.find(function (trainee) {
         return trainee.id === part.trainee_id
       })
@@ -174,7 +176,9 @@ class CurrentSession extends React.Component {
           part.trainee_id === trainee.id
         )
       })
+      console.log('corresParticipant.heart_rate is ' + corresParticipant.heart_rate.slice(-1)[0])
       let lastHeartRate = corresParticipant.heart_rate.slice(-1)[0]
+
       return (
         <div key={index} className='col-sm-12'>
           <h4 className='text-white'>

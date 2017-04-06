@@ -5,9 +5,11 @@ class App extends React.Component {
     // Must pass in props here because React only assigns props on constructed instance right after construction. Hence, we make use of the fact that React passes props to constructor by default
     super(props)
     this.state = {
+      // first 3 states are full data set from server
       training: this.props.training,
-      screen: 'upcoming',
       trainingHist: this.props.trainingHist,
+      trainingParticipants: this.props.participants,
+      screen: 'upcoming',
       isModalOpen: false,
       isEditForm: false,
       // upcoming states below
@@ -84,7 +86,8 @@ class App extends React.Component {
       success: function (data) {
         this.setState({
           training: data.training_all,
-          trainingHist: data.training_hist
+          trainingHist: data.training_hist,
+          trainingParticipants: data.participants_all
         })
         console.log('trainings updated on upcoming page after create/edit')
         this.setState({
@@ -151,7 +154,7 @@ class App extends React.Component {
     })
 
     // this.props.participants is array of all participants in database
-    let selectedParticipants = this.props.participants.filter(function (part) {
+    let selectedParticipants = this.state.trainingParticipants.filter(function (part) {
       // console.log('trainingId is ' + trainingId) //ok
       return part.training_id === parseInt(trainingId)
     })
@@ -159,8 +162,8 @@ class App extends React.Component {
     let selectedTrainees = this.props.trainees.filter(function (trainee) {
       return trainee.platoon_num === selectedTraining.platoon_num
     })
-    console.log('selectedTraining is ' + selectedTraining) // ok
-    console.log('selectedTrainees is ' + selectedTrainees)// not ok
+    // console.log('selectedTraining is ' + selectedTraining) // ok
+    // console.log('selectedTrainees is ' + selectedTrainees)// ok
     console.log('selectedParticipants is ' + selectedParticipants)// not ok
     // console.log('this.props.participants is ' + this.props.participants) //ok
     // console.log('this.props.trainees is ' + this.props.trainees) //ok
@@ -172,8 +175,8 @@ class App extends React.Component {
       currentTrainees: selectedTrainees,
       currentTraining: selectedTraining,
       currentParticipants: selectedParticipants,
-      screen: 'current',
-      isTrainingSelected: true
+      isTrainingSelected: true,
+      screen: 'current'
     })
   }
 
