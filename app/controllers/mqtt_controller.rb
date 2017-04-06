@@ -34,6 +34,10 @@ class MqttController < ApplicationController
     clientOff.publish('startstop', @training.id.to_s , retain=false)
     clientOff.disconnect()
 
+    respond_to do |format|
+      format.json  { render :json => {:training => @training}}
+    end
+
   end
 
   private

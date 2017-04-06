@@ -24,8 +24,11 @@ class CurrentSession extends React.Component {
           $.ajax({
             url: '/participants.json',
             method: 'GET',
+            data: {
+              trainingId: this.props.currentTraining.id
+            },
             success: function (updatedParticipants) {
-              // Returned data is array of participant objects updated with new heart rate
+              // Returned data is array of selected participants of this session updated with new heart rate
               console.log('received updated Participants from server' + updatedParticipants)
               this.props.updateCurrentParticipants(updatedParticipants)
             }.bind(this)
@@ -94,11 +97,16 @@ class CurrentSession extends React.Component {
     let currentThreshold = this.props.threshold
     // alertParticipants is array of participants in danger
     let alertParticipants = currentParticipants.filter(function (part) {
-      return part.heart_rate.slice(-1)[0] >= currentThreshold
-    })
+      // For each participant which goes through filter function, check lastHeartRate and check who corresponding trainee is
+      let lastHeartRate = part.heart_rate.slice(-1)[0]
+      let corresTrainee = currentTrainees.find(function (trainee) {
+        return trainee.id === part.trainee_id
+      })
+      // Return filtered array of only those trainees who cross threshold or have heart beat less than 27, lowest guiness book of record resting heart rate!
 
-    alertParticipants.forEach(function (part) {
-      console.log('alertParticipant obj is' + part)
+      return (
+        Math.round((lastHeartRate / (220 - corresTrainee.age)) * 100) >= currentThreshold || lastHeartRate < 27
+      )
     })
 
     if (alertParticipants.length > 0) {
@@ -113,15 +121,12 @@ class CurrentSession extends React.Component {
 
       var stringToPrint = 'Following in danger: '
 
-      // atRiskTrainees.map(function (trainee, index) {
-      //   return (
-      //     <h3 key={index}>
-      //       {trainee.first_name + ' ' + trainee.last_name + ' Heart Rate exceeded!'}
-      //     </h3>
-      //   )
-      // })
-      atRiskTrainees.forEach(function (trainee) {
-        stringToPrint += trainee.first_name + ' '
+      atRiskTrainees.forEach(function (trainee, index) {
+        if (index === 0) {
+          stringToPrint += trainee.first_name
+        } else {
+          stringToPrint += (', ' + trainee.first_name)
+        }
       })
       this.setState({
         HrNotify: stringToPrint
@@ -134,13 +139,40 @@ class CurrentSession extends React.Component {
   }
 
   render () {
+    if (!this.props.isTrainingSelected) {
+      return (
+        <div className='container'>
+          <div className='row'>
+            <div className='col-sm-8 col-sm-offset-2'>
+              <div className='panel panel-default'>
+                <div className='panel-heading'>
+                  <h1 className='panel-title text-white'>Current Session</h1>
+                </div>
+                <div className='panel-body'>
+                  <h3 className='text-white'>
+                    Select a training in homepage to begin
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }
+
     let currentParticipants = this.props.currentParticipants
     let currentTrainees = this.props.currentTrainees
-
     let currentTraining = this.props.currentTraining
+    // console.log('current trainees is ' + currentTrainees)// error
+    // console.log('current training is ' + currentTraining)// ok
+    // console.log('current participants is ' + currentParticipants)// error
+
     let renderTrainees = currentTrainees.map(function (trainee, index) {
       let corresParticipant = currentParticipants.find(function (part) {
-        return (part.trainee_id === trainee.id && part.training_id === currentTraining.id)
+        // return (part.trainee_id === trainee.id && part.training_id === currentTraining.id)
+        return (
+          part.trainee_id === trainee.id
+        )
       })
       let lastHeartRate = corresParticipant.heart_rate.slice(-1)[0]
       return (
@@ -151,6 +183,8 @@ class CurrentSession extends React.Component {
         </div>
       )
     })
+
+    // console.log('renderTrainees is ' + renderTrainees)
 
     return (
       <div className='container'>
@@ -176,26 +210,25 @@ class CurrentSession extends React.Component {
                   </button>
                 </div>
 
-                  <div className='col-sm-12'>
-                    <h3 className='text-white'>Notifications</h3>
-                    <h4 className='text-white'>{this.state.HrNotify}</h4>
-                  </div>
+                <div className='col-sm-12'>
+                  <h3 className='text-white'>Notifications</h3>
+                  <h4 className='text-white'>{this.state.HrNotify}</h4>
+                </div>
               </div>
 
-
+            </div>
           </div>
-        </div>
-        <PopupAAR
-          isAARModalOpen={this.state.isAARModalOpen}
-          openAARModal={this.openAARModal.bind(this)}
-          closeAARModal={this.closeAARModal.bind(this)}
-          updateAAR={this.updateAAR.bind(this)}
-          handleFormInput={this.handleFormInput.bind(this)}
-          trainingId={this.props.currentTraining.id}
-          remark={this.state.remark}
+          <PopupAAR
+            isAARModalOpen={this.state.isAARModalOpen}
+            openAARModal={this.openAARModal.bind(this)}
+            closeAARModal={this.closeAARModal.bind(this)}
+            updateAAR={this.updateAAR.bind(this)}
+            handleFormInput={this.handleFormInput.bind(this)}
+            trainingId={this.props.currentTraining.id}
+            remark={this.state.remark}
         />
+        </div>
       </div>
-    </div>
     )
   }
 }

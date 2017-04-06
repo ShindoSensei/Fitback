@@ -7,6 +7,8 @@ class TrainingsController < ApplicationController
     @activities_all = Activity.all
     @training_hist = Training.select("trainings.*,activities.activity_type").joins(:activity).where("status='completed' and instructor_id=?", current_user.id).order(training_date: :desc)
     @trainees_all = Trainee.all
+    #Returns single record per unique platoon_num for trainees. Used to populate platoon_num field in create training form.
+    @trainees_unique_platoon = Trainee.select("trainees.platoon_num").distinct
     @participants_all = Participant.all
     respond_to do |format|
       format.json  { render :json => {:training_all => @training_all,
@@ -30,6 +32,7 @@ class TrainingsController < ApplicationController
 
     # #Creating participants for this new training session
     # #Finding all trainees from chosen platoon in form
+    puts "incoming platoon_num is #{params[:training][:platoon_num]}"
     @trainees = Trainee.where(:platoon_num => params[:training][:platoon_num])
 
     # #Creating participants for training

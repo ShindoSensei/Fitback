@@ -18,7 +18,7 @@ class App extends React.Component {
       date: '',
       time: '00:00:00',
       place: '',
-      platoon: '',
+      platoon: 1,
       duration: '',
       // User states below
       firstName: '',
@@ -32,7 +32,8 @@ class App extends React.Component {
       currentTraining: {},
       currentThres: '',
       currentTrainees: [],
-      currentParticipants: []
+      currentParticipants: [],
+      isTrainingSelected: false
     }
   }
   setRenderScreen (newScreen, json) {
@@ -100,7 +101,7 @@ class App extends React.Component {
       date: '',
       time: '00:00:00',
       place: '',
-      platoon: '',
+      platoon: 1,
       duration: '',
       isEditForm: false
     })
@@ -151,12 +152,19 @@ class App extends React.Component {
 
     // this.props.participants is array of all participants in database
     let selectedParticipants = this.props.participants.filter(function (part) {
+      // console.log('trainingId is ' + trainingId) //ok
       return part.training_id === parseInt(trainingId)
     })
 
     let selectedTrainees = this.props.trainees.filter(function (trainee) {
       return trainee.platoon_num === selectedTraining.platoon_num
     })
+    console.log('selectedTraining is ' + selectedTraining) // ok
+    console.log('selectedTrainees is ' + selectedTrainees)// not ok
+    console.log('selectedParticipants is ' + selectedParticipants)// not ok
+    // console.log('this.props.participants is ' + this.props.participants) //ok
+    // console.log('this.props.trainees is ' + this.props.trainees) //ok
+    // console.log('this.props.training is ' + this.props.training) //ok
 
     this.setState({
       currentActivity: selectedActivity.activity_type,
@@ -164,7 +172,8 @@ class App extends React.Component {
       currentTrainees: selectedTrainees,
       currentTraining: selectedTraining,
       currentParticipants: selectedParticipants,
-      screen: 'current'
+      screen: 'current',
+      isTrainingSelected: true
     })
   }
 
@@ -180,11 +189,14 @@ class App extends React.Component {
     if (status === 'running') {
       this.setState({
         // disable all buttons on upcoming page
-        btnsDisabled: 'disabled'
+        btnsDisabled: 'disabled',
+        footerBtnsDisabled: 'disabled'
       })
     } else if (status === 'ended') {
       this.setState({
-        btnsDisabled: 'enabled'
+        btnsDisabled: 'enabled',
+        footerBtnsDisabled: 'enabled',
+        isTrainingSelected: false
       })
     }
   }
@@ -213,6 +225,7 @@ class App extends React.Component {
         footerBtnsDisabled={this.state.footerBtnsDisabled}
         update={this.updateUpcomingHist.bind(this)}
         setRenderScreen={this.setRenderScreen.bind(this)}
+        isTrainingSelected={this.state.isTrainingSelected}
       />
     } else if (this.state.screen === 'user') {
       screenRender = <User
@@ -243,6 +256,7 @@ class App extends React.Component {
             trainingPlatoon={this.state.platoon}
             trainingDurn={this.state.duration}
             trainingPlace={this.state.place}
+            uniquePlatTrainees={this.props.trainees_unique_plat}
           />
         </div>
         <FixedFooter setRenderScreen={this.setRenderScreen.bind(this)} footerBtnsDisabled={this.state.footerBtnsDisabled} />
