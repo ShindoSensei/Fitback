@@ -76,13 +76,14 @@ class App extends React.Component {
     })
   }
 
-  updateUpcoming () {
+  updateUpcomingHist () {
     $.ajax({
       url: '/trainings.json',
       method: 'GET',
       success: function (data) {
         this.setState({
-          training: data.training_all
+          training: data.training_all,
+          trainingHist: data.training_hist
         })
         console.log('trainings updated on upcoming page after create/edit')
         this.setState({
@@ -209,6 +210,9 @@ class App extends React.Component {
         currentTraining={this.state.currentTraining}
         updateCurrentParticipants={this.updateCurrentParticipants.bind(this)}
         currentSessionStatus={this.currentSessionStatus.bind(this)}
+        footerBtnsDisabled={this.state.footerBtnsDisabled}
+        update={this.updateUpcomingHist.bind(this)}
+        setRenderScreen={this.setRenderScreen.bind(this)}
       />
     } else if (this.state.screen === 'user') {
       screenRender = <User
@@ -229,7 +233,7 @@ class App extends React.Component {
             isOpen={this.state.isModalOpen}
             isEditForm={this.state.isEditForm}
             closeModal={this.closeModal.bind(this)}
-            update={this.updateUpcoming.bind(this)}
+            update={this.updateUpcomingHist.bind(this)}
             activities={this.props.activity}
             handleFormInput={this.handleFormInput.bind(this)}
             trainingId={this.state.trainingId}

@@ -1,11 +1,11 @@
 class TrainingsController < ApplicationController
-  before_action :set_training, only: [:show, :edit, :update, :destroy]
+  before_action :set_training, only: [:show, :edit, :update, :destroy, :updateAAR]
   before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy]
 
   def index
     @training_all = Training.where("training_date >= ? and status='new' and instructor_id = ?" , Date.today, current_user.id).order('training_date ASC')
     @activities_all = Activity.all
-    @training_hist = Training.select("trainings.*,activities.activity_type").joins(:activity).where("training_date < ? and status='completed' and instructor_id=?", Date.today, current_user.id).order(training_date: :desc)
+    @training_hist = Training.select("trainings.*,activities.activity_type").joins(:activity).where("status='completed' and instructor_id=?", current_user.id).order(training_date: :desc)
     @trainees_all = Trainee.all
     @participants_all = Participant.all
     respond_to do |format|
@@ -81,6 +81,10 @@ class TrainingsController < ApplicationController
     end
   end
 
+  def updateAAR
+    @training.update(training_aar_params)
+  end
+
   def destroy
     @training.destroy
     #Do something here
@@ -94,5 +98,8 @@ class TrainingsController < ApplicationController
 
   def training_params
     params.require(:training).permit(:activity_id, :training_date, :training_time, :location, :duration, :platoon_num)
+  end
+  def training_aar_params
+    params.require(:training).permit(:AAR, :status)
   end
 end

@@ -1,4 +1,4 @@
-/* globals React $ */
+/* globals React PopupAAR $ */
 
 class CurrentSession extends React.Component {
 
@@ -6,7 +6,9 @@ class CurrentSession extends React.Component {
     super()
     this.state = {
       timerId: '',
-      HrNotify: ''
+      HrNotify: '',
+      isAARModalOpen: false,
+      remark: ''
     }
   }
 
@@ -50,12 +52,40 @@ class CurrentSession extends React.Component {
       url: '/stop_training/' + this.props.currentTraining.id + '.json',
       method: 'GET',
       success: function (data) {
-        this.props.currentSessionStatus('ended')
+        // put the function to open popupAAR
+        this.openAARModal()
+        // code above this function to
+         // enables footer buttons, move this over to AAR onSubmit function. currentSessionStatus('ended') should only be run after AAR is submitted
         console.log('successfully stopped training')
       }.bind(this)
     })
     // Activate AAR box that pops up
     // Upon clicking stop session, add this training to history and remove from upcoming
+  }
+  handleFormInput (event) {
+    let inputName = event.target.name
+    console.log(event.target.value)
+    this.setState({
+      [inputName]: event.target.value
+    })
+  }
+  updateAAR () {
+    this.props.currentSessionStatus('ended')
+    this.props.update()
+    this.props.setRenderScreen('history')
+  }
+  openAARModal () {
+    console.log('openAARModal called in app.jsx')
+    this.setState({
+      isAARModalOpen: true
+    })
+  }
+
+  closeAARModal () {
+    console.log('closeAARModal called in app.jsx')
+    this.setState({
+      isAARModalOpen: false
+    })
   }
 
   componentWillReceiveProps () {
@@ -151,6 +181,15 @@ class CurrentSession extends React.Component {
             <h3>{this.state.HrNotify}</h3>
           </div>
         </div>
+        <PopupAAR
+          isAARModalOpen={this.state.isAARModalOpen}
+          openAARModal={this.openAARModal.bind(this)}
+          closeAARModal={this.closeAARModal.bind(this)}
+          updateAAR={this.updateAAR.bind(this)}
+          handleFormInput={this.handleFormInput.bind(this)}
+          trainingId={this.props.currentTraining.id}
+          remark={this.state.remark}
+        />
       </div>
     )
   }

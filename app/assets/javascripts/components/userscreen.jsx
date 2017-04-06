@@ -7,8 +7,8 @@ class User extends React.Component {
     this.state = {
       formstatus: false,
       messagestatus: true,
-      message: 'User Profile Update!',
-      alert_type: 'alert alert-success'
+      message: '',
+      alert_type: ''
     }
   }
 
@@ -41,7 +41,9 @@ class User extends React.Component {
         if (data.update === 'success') {
           this.setState({
             formstatus: true,
-            messagestatus: false
+            messagestatus: false,
+            message: 'User Profile Update!',
+            alert_type: 'alert alert-success'
           })
         } else {
           this.setState({
@@ -65,17 +67,17 @@ class User extends React.Component {
 
           <div className='field'>
             <label>First Name</label><br />
-            <input autoFocus='autofocus' type='text' value={this.props.firstName} name='firstName' id='user_first_name' onChange={this.onInputChange.bind(this)} />
+            <input autoFocus='autofocus' type='text' value={this.props.firstName} name='firstName' id='user_first_name' onChange={this.onInputChange.bind(this)} required />
           </div>
 
           <div className='field'>
             <label>Last Name</label><br />
-            <input autoFocus='autofocus' type='text' value={this.props.lastName} name='lastName' id='user_last_name' onChange={this.onInputChange.bind(this)} />
+            <input autoFocus='autofocus' type='text' value={this.props.lastName} name='lastName' id='user_last_name' onChange={this.onInputChange.bind(this)} required />
           </div>
 
           <div className='field'>
             <label>Email</label><br />
-            <input autoFocus='autofocus' type='email' value={this.props.email} name='email' id='user_email' onChange={this.onInputChange.bind(this)} />
+            <input autoFocus='autofocus' type='email' value={this.props.email} name='email' id='user_email' onChange={this.onInputChange.bind(this)} required />
           </div>
 
           <div className='field'>

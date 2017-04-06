@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   get 'user_edit',  to:'users#edit', as: 'user_edit'
   put 'user_update/:id', to:'users#update', as: 'user_update'
+  put 'updateAAR/:id', to: 'trainings#updateAAR', as:'updateAAR'
 
 
 
@@ -27,8 +28,6 @@ Rails.application.routes.draw do
        root :to => 'devise/sessions#new'
      end
   resources :users
-
-
   resources :trainees
   resources :trainings
   root 'static#homepage'
