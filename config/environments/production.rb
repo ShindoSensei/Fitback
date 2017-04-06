@@ -86,5 +86,7 @@ Rails.application.configure do
 
   #React.js build to serve in production environment
   config.react.variant = :production
+  config.serve_static_assets = true
+  config.assets.compile = true
 
 end
