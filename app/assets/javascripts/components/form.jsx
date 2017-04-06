@@ -102,8 +102,8 @@ class Form extends React.Component {
             <i className='fa fa-times fa-2x fa-pull-right' aria-hidden='true' />
           </a>
         </div>
-          <form onSubmit={this.submitFunc.bind(this)} className='formBox'>
-            <div className='col-md-12'>
+        <form onSubmit={this.submitFunc.bind(this)} className='formBox'>
+          <div className='col-xs-12'>
             <label>
               Activity:
             </label>
@@ -133,10 +133,10 @@ class Form extends React.Component {
             </label>
             <input name='duration' type='number' min='1' value={this.props.trainingDurn} onChange={this.onInputChange.bind(this)} placeholder='Enter in mins' required />
           </div>
-          <div className='col-md-12 text-center'>
+          <div className='col-xs-4 col-xs-offset-4'>
             <button className='btn btn-lg button-black2 text-white'> Submit </button>
-            </div>
-          </form>
+          </div>
+        </form>
       </div>
     )
   }

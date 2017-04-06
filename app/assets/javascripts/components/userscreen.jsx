@@ -60,7 +60,7 @@ class User extends React.Component {
     return (
       <div className='container'>
         <div className='row'>
-          <div className='col-xs-8 col-xs-offset-2'>
+          <div className='col-sm-8 col-sm-offset-2 col-xs-12'>
 
             <div className='panel panel-default'>
               <div className='panel-heading'>
@@ -104,7 +104,6 @@ class User extends React.Component {
               </div>
 
             </div>
-
 
           </div>
         </div>

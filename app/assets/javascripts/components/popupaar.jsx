@@ -39,7 +39,9 @@ class PopupAAR extends React.Component {
             <textarea name='remark' type='text' value={this.props.remark} onChange={this.onInputChange.bind(this)} placeholder='Enter remark on the training conducted' required />
             <br />
             <br />
+            <div className="col-xs-4 col-xs-offset-4">
             <button className='btn btn-large button-black2 text-white'> Submit </button>
+            </div>
           </form>
         </div>
       </div>
