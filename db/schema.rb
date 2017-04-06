@@ -24,11 +24,11 @@ ActiveRecord::Schema.define(version: 20170328023952) do
 
   create_table "participants", force: :cascade do |t|
     t.integer  "calories_burnt"
-    t.integer  "heart_rate",     default: [0],              array: true
+    t.integer  "heart_rate",     default: [],              array: true
     t.integer  "training_id"
     t.integer  "trainee_id"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.index ["trainee_id"], name: "index_participants_on_trainee_id", using: :btree
     t.index ["training_id"], name: "index_participants_on_training_id", using: :btree
   end

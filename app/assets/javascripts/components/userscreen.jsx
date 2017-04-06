@@ -61,40 +61,51 @@ class User extends React.Component {
       <div className='container'>
         <div className='row'>
           <div className='col-xs-8 col-xs-offset-2'>
-            <h2>Edit User Profile</h2>
-            <div className='container' hidden={this.state.messagestatus}>
-              <p className={this.state.alert_type}>{this.state.message}</p>
+
+            <div className='panel panel-default'>
+              <div className='panel-heading'>
+                <h1 className='panel-title text-white'>Edit User Profile</h1>
+              </div>
+
+              <div className='panel-body'>
+                <div className='container' hidden={this.state.messagestatus}>
+                  <p className={this.state.alert_type}>{this.state.message}</p>
+                </div>
+                <form className='edit_user' id='edit_user' onSubmit={this.submitEditUserFunc.bind(this)} hidden={this.state.formstatus}>
+
+                  <div className='field'>
+                    <label className='text-white'>First Name</label><br />
+                    <input autoFocus='autofocus' type='text' value={this.props.firstName} name='firstName' id='user_first_name' onChange={this.onInputChange.bind(this)} required />
+                  </div>
+
+                  <div className='field'>
+                    <label className='text-white'>Last Name</label><br />
+                    <input autoFocus='autofocus' type='text' value={this.props.lastName} name='lastName' id='user_last_name' onChange={this.onInputChange.bind(this)} required />
+                  </div>
+
+                  <div className='field'>
+                    <label className='text-white'>Email</label><br />
+                    <input autoFocus='autofocus' type='email' value={this.props.email} name='email' id='user_email' onChange={this.onInputChange.bind(this)} required />
+                  </div>
+                  <div className='field'>
+                    <label className='text-white'>Password</label>
+                    <i>(leave blank if you don't want to change it)</i><br />
+                    <input autoComplete='off' type='password' name='password' id='password' onChange={this.onInputChange.bind(this)} />
+                    <br />
+                    <em>6 characters minimum</em>
+                  </div>
+
+                  <div className='field'>
+                    <button className='btn btn-success btn-md button-black'>
+                      Update Profile
+                    </button>
+                  </div>
+                </form>
+              </div>
+
             </div>
-            <form className='edit_user' id='edit_user' onSubmit={this.submitEditUserFunc.bind(this)} hidden={this.state.formstatus}>
 
-              <div className='field'>
-                <label>First Name</label><br />
-                <input autoFocus='autofocus' type='text' value={this.props.firstName} name='firstName' id='user_first_name' onChange={this.onInputChange.bind(this)} required />
-              </div>
 
-              <div className='field'>
-                <label>Last Name</label><br />
-                <input autoFocus='autofocus' type='text' value={this.props.lastName} name='lastName' id='user_last_name' onChange={this.onInputChange.bind(this)} required />
-              </div>
-
-              <div className='field'>
-                <label>Email</label><br />
-                <input autoFocus='autofocus' type='email' value={this.props.email} name='email' id='user_email' onChange={this.onInputChange.bind(this)} required />
-              </div>
-              <div className='field'>
-                <label>Password</label>
-                <i>(leave blank if you don't want to change it)</i><br />
-                <input autoComplete='off' type='password' name='password' id='password' onChange={this.onInputChange.bind(this)} />
-                <br />
-                <em>6 characters minimum</em>
-              </div>
-
-              <div className='field'>
-                <button className='btn btn-success btn-xs'>
-                  Update Profile
-                </button>
-              </div>
-            </form>
           </div>
         </div>
       </div>

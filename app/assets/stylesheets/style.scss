@@ -8,8 +8,8 @@ html {
 body {
     margin: 0 0 100px; /* bottom = footer height */
     padding: 25px;
-    font-family: "Raleway", arial, helvetica, sans-serif;
-    font-weight: lighter;
+    font-family: "Lato", arial, helvetica, sans-serif;
+    font-weight: 400;
     background-image: url('/assets/cod.jpg');
     background-size: cover;
     background-attachment: fixed;
@@ -19,13 +19,11 @@ body {
 #wrap {
   min-height: 100%;
   height: auto;
-  margin: 80px auto -80px;
+  margin: 100px auto -80px;
   padding: 0 0 80px;
 }
 
 p, ol, ul, td {
-  font-family: "Lato", arial, helvetica, sans-serif;
-  font-weight: 400;
   color: #1C1919;
 }
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
@@ -39,7 +37,7 @@ h3, h4, h5, h6, .h3, .h4, .h5, .h6 {
   color: #1C1919;
 }
 a, a:visited {
-color: #1C1919 !important;
+color: #1C1919;
 }
 .logo{
   padding: 10px 0;
@@ -103,8 +101,8 @@ a:hover{
   z-index: 9999;
   background: #595959;
   width: 400px;
-  padding: 15px;
-  border: solid 2px #010101;
+  padding: 10px;
+  border: 0px;
 }
 
 .formBox input, .formBox select {
@@ -146,6 +144,16 @@ a:hover{
 }
 .button-clear {
   background: transparent;
+  border: none;
+}
+.button-black {
+  background: #5d5c5c;
+  border-radius: 0px;
+  border: none;
+}
+.button-black2 {
+  background: #000000;
+  border-radius: 0px;
   border: none;
 }
 
