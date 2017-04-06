@@ -48,6 +48,9 @@ color: #1C1919;
 .text-white{
   color: #FFFFFF !important;
 }
+.text-cross{
+  color: #000000 !important;
+}
 .navbar-default{
   background-color: rgba(0,0,0,0.7);
   border-color: #000000;
@@ -179,5 +182,8 @@ a:hover{
   }
   .panel-title{
     font-size: 1.7em;
+  }
+  .text-cross{
+    color: #FFFFFF !important;
   }
 }
