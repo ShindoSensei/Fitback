@@ -8,7 +8,9 @@ class CurrentSession extends React.Component {
       timerId: '',
       HrNotify: '',
       isAARModalOpen: false,
-      remark: ''
+      remark: '',
+      startbutton: false,
+      stopbutton: true
     }
   }
 
@@ -36,7 +38,9 @@ class CurrentSession extends React.Component {
         }.bind(this), 1000)
 
         this.setState({
-          timerId: intervalId
+          timerId: intervalId,
+          startbutton: true,
+          stopbutton: false
         })
         console.log('IntervalId is ' + intervalId) // run
         console.log('this.state.timerId is ' + this.state.timerId) // run
@@ -51,6 +55,10 @@ class CurrentSession extends React.Component {
     // Stop interval of ajax call
     console.log('Entering stopTraining')
     clearInterval(this.state.timerId)
+    this.setState({
+      startbutton: true,
+      stopbutton: true
+    })
     $.ajax({
       url: '/stop_training/' + this.props.currentTraining.id + '.json',
       method: 'GET',
@@ -205,13 +213,16 @@ class CurrentSession extends React.Component {
                 <h3 className='text-white'>Location: {currentTraining.location}</h3>
                 {renderTrainees}
                 <div className='col-sm-12 text-center'>
-                  <button className='button-clear' onClick={this.startTraining.bind(this)}>
+                  <div hidden={this.state.startbutton}>
+                  <button className='button-clear' onClick={this.startTraining.bind(this)} >
                     <i className='fa fa-play-circle-o fa-5x text-white small-padding-right' aria-hidden='true' />
                   </button>
-                  <i className='fa fa-spinner fa-pulse fa-3x fa-fw text-white' />
+                  </div>
+                  <div hidden={this.state.stopbutton}>
                   <button className='button-clear' onClick={this.stopTraining.bind(this)}>
                     <i className='fa fa-stop-circle-o fa-5x text-white' aria-hidden='true' />
                   </button>
+                  </div>
                 </div>
 
                 <div className='col-sm-12'>

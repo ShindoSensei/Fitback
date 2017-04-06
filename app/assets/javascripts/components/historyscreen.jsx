@@ -17,7 +17,7 @@ class History extends React.Component {
                 <h5 className='text-white'>Date: {train.training_date}</h5>
                 <h5 className='text-white'>Time: {("0" + (mytime.getUTCHours())).slice(-2)   + ":" +
                   ("0" + mytime.getMinutes()).slice(-2)}</h5>
-                <h5>AAR: {train.AAR}</h5>
+                <h5 className='text-white'>AAR: {train.AAR}</h5>
               </div>
             </div>
           </div>
