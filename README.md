@@ -3,9 +3,9 @@
 On Feb 20th 2017, a Singapore Armed Forces regular serviceman lost consciousness during physical training in camp and died soon after.
 [(ST article)](http://www.straitstimes.com/singapore/saf-regular-serviceman-died-on-monday-after-collapsing-during-his-own-physical-training-at)
 
-To reduce the occurences of such events and assist military commanders to monitor the safety of their men, we created an IOT-Web app called 'Pulse'.
+To reduce the occurrences of such events and assist military commanders in monitoring the safety of their men, we created an IOT-Web app called 'Pulse'.
 
-Pulse reads the heart rates of a group of trainees(real time). It immediately notifies the instructor if any trainee's heart rate has breached a safety threshold during physical training.
+Pulse reads the heart rates of a group of trainees(real-time). It immediately notifies the instructor if any trainee's heart rate has breached a safety threshold during physical training.
 
 ## Live Version
  [https://pulseboard.herokuapp.com](https://pulseboard.herokuapp.com)
@@ -27,9 +27,9 @@ Pulse reads the heart rates of a group of trainees(real time). It immediately no
 ## Built With
 
 * Ruby On Rails
+* Arduino (IOT with MQTT)
 * React.js
 * Bootstrap
-* Arduino (IOT with MQTT)
 * jQuery
 * Font Awesome
 
