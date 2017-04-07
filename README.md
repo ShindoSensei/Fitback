@@ -28,7 +28,9 @@ To facilitate task delegation and communication, we used the Github Project Kanb
 ## Built With
 
 * Ruby On Rails
-* Arduino (IOT with MQTT)
+* Arduino (IOT with cloudMQTT)
+* PostgreSQL
+* Heroku (Deployment)
 * React.js
 * Bootstrap
 * jQuery
